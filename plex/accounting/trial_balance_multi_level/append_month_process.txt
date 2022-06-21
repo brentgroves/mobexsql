@@ -1,0 +1,76 @@
+/*
+Make a backup of Plex.account_period_balance
+select count(*) from Plex.account_period_balance  -- 170,863
+select *
+into Archive.account_period_balance_01_24_2022 
+from Plex.account_period_balance  -- 170,863
+select count(*) from Archive.account_period_balance_01_24_2022 -- 170,863
+
+Run AccountingPeriod ETL script to update the Plex.accounting_period table with the most current periods. 
+
+Run accounting_balance_last_full_period ETL script to determine the last full period with a balance snapshot.
+ 
+Set the period range to be calculated.
+Start from 2021-02 since 2021-01 is the anchor period.
+In case any of the period snap shots have changed always start from 2021-02
+until 2022-02 then we will have a years worth of values so the anchor 
+can be increased to 2021-02. And an ETL script can be written to update this 
+period range to be 1 year back.
+
+Set the period range to be calculated. 
+Should be 1 years worth eventually.
+update Plex.accounting_balance_update_period_range
+set period_start=202102,period_end=202112
+where pcn=123681 -- southfield
+
+
+update Plex.accounting_balance_update_period_range
+set period_start=202002,period_end=202112
+where pcn=300758 -- albion
+
+AccountingPeriodBalance update process
+
+
+-1. Run the Accounting_account ETL script 
+0. Run the Accounting_period ETL script
+1. Run the AccountingBalanceUpdatePeriodRange ETL script to update the Plex.accounting_balance_update_period_range table
+with the period range to update the Plex.accounting_period_balance table for.  The start and end values are computed in 
+the Plex accounting_balance_update_period_range_dw_import procedure and will normally be the past years worth of periods.
+2. Run the AccountingBalanceAppendPeriodRange ETL script which uses the values in the the Plex.accounting_balance_update_period_range table
+to determine what range of Plex.accounting_balance records to update.
+a. run the Plex.accounting_balance_delete_period_range
+b. run the Plex.accounting_balance_append_period_range_DW_Import procedure to refresh/add Plex.accounting_balance records with current values.
+3. run the AccountPeriodBalanceDeletePeriodRange ETL Script to delete the periods that are to be recalculated 
+from Plex.account_period_balance_delete_period_range.  
+4. Run the AccountPeriodBalanceRecreatePeriodRange ETL Script to run the Plex.account_period_balance_recreate_period_range procedure
+that will recreate Plex.account_period_balance table records within the range found in the Plex.accounting_balance_update_period_range table.
+5. To verify run the TrialBalanceMultiLevel ETL script to add new periods to the Plex.trial_balance_multi_level table.
+6. Also run the GLAccountActivitySummary ETL script to verify missing accounts not on the TB report.
+7. Also run the AccountBalancesByPeriod ETL script to call the Plex Authored Procedure used for the TB report.  It will also be
+missing the same accounts as the TrialBalanceMultiLevel report but it has no rounding issue.
+
+delete from 
+Plex.account_period_balance b
+where pcn=123681
+and period between period_start and period_end
+
+Albion has no valid data yet.
+delete Plex.account_period_balance where  pcn = 300758
+
+Run AccountBalanceUpdate ETL script to delete/re-add account_balance snapshot records.
+ Plex.accounting_balance b 
+
+Run AccountBalanceByPeriod ETL Script to validate account_period_balance calculation.
+
+Run ETL Script to refresh the accounting_balance snapshots.
+
+Add a new period to the Plex.account_period_balance table.
+
+**/
+Actually I would like to know if we will be able to run the SSIS projects that use ZappySys components, 
+such as the ZS XML Source component from with Visual Studio, SQL Server, and Azure Data Factory after the license has expired.
+
+
+So If we deploy the SSIS projects to Azure Data Factory we will not be able to run them after the license has expired?
+One more question please. If we delete our existing Azure Data Factory for some reason. And then recreate a new 
+Azure Data Factory to is it possible to transfer the license to the new data factory?
