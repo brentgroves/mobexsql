@@ -1,1 +1,0 @@
-  SELECT id, foo, bar INTO var1, var2, var3 from page WHERE name="bob";
