@@ -1,4 +1,4 @@
-select * from Plex.account_period_balance 
+Jselect * from Plex.account_period_balance 
 --EXEC Plex.account_period_balance_recreate_period_range
 -- drop procedure Plex.account_period_balance_recreate_period_range
 
