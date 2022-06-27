@@ -209,6 +209,21 @@
 				"type": "dev",
 				"auth-model": "native"
 			}
+		},
+		"mysql8-1819c34190e-10cc3f0e3e35ecc9": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "frt-ubu-on-etl-k8s",
+			"save-password": true,
+			"read-only": false,
+			"configuration": {
+				"host": "frt-ubu",
+				"port": "31008",
+				"url": "jdbc:mysql://frt-ubu:31008/",
+				"type": "dev",
+				"auth-model": "native",
+				"handlers": {}
+			}
 		}
 	},
 	"connection-types": {

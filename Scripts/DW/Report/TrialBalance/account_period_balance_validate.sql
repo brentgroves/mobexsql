@@ -411,7 +411,7 @@ select *
 --into Archive.Script_History_06_06
 from ETL.Script_History sh 
 where Script_Key in (1,3,4,5,6,116,117)
-and Start_Time > '2022-06-15' 
+and Start_Time > '2022-06-25' 
 order by Script_History_Key desc
 -- delete from ETL.Script_History
 where Script_Key in (1,3,4,5,6,116,117)
