@@ -6,12 +6,12 @@
 			"driver": "microsoft",
 			"name": "AvillaToolboss",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "172.20.90.37",
 				"port": "1433",
 				"database": "sps",
-				"url": "jdbc:sqlserver://;serverName=172.20.90.37;databaseName=sps",
+				"url": "jdbc:sqlserver://;serverName\u003d172.20.90.37;databaseName\u003dsps",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
@@ -24,16 +24,17 @@
 			"driver": "mssql_jtds_legacy",
 			"name": "Busche ToolList",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
-				"host": "busche-sql",
+				"host": "busche-sql.busche-cnc.com",
 				"port": "1433",
 				"database": "Busche ToolList",
-				"url": "jdbc:jtds:sqlserver://busche-sql/Busche ToolList",
+				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/Busche ToolList",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false"
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
 				},
 				"auth-model": "native"
 			}
@@ -43,17 +44,18 @@
 			"driver": "mssql_jtds_legacy",
 			"name": "cribmaster",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
-				"host": "busche-sql",
+				"host": "busche-sql.busche-cnc.com",
 				"port": "1433",
 				"database": "cribmaster",
-				"url": "jdbc:jtds:sqlserver://busche-sql/cribmaster",
+				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/cribmaster",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
-				}
+				},
+				"auth-model": "native"
 			}
 		},
 		"microsoft-181874ea4c0-6e5ba690038dfc8f": {
@@ -61,12 +63,12 @@
 			"driver": "microsoft",
 			"name": "Kors",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "busche-dtc-sql1",
 				"port": "1433",
 				"database": "Kors",
-				"url": "jdbc:sqlserver://;serverName=busche-dtc-sql1;databaseName=Kors",
+				"url": "jdbc:sqlserver://;serverName\u003dbusche-dtc-sql1;databaseName\u003dKors",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
@@ -79,11 +81,11 @@
 			"driver": "mysql8",
 			"name": "Kubenetes",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.1.83",
 				"port": "31008",
 				"url": "jdbc:mysql://10.1.1.83:31008/",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"auth-model": "native"
 			}
@@ -93,12 +95,12 @@
 			"driver": "microsoft",
 			"name": "mgdw-mgsqlmi",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
 				"port": "3342",
 				"database": "mgdw",
-				"url": "jdbc:sqlserver://;serverName=mgsqlmi.public.48d444e7f69b.database.windows.net;port=3342;databaseName=mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlmi.public.48d444e7f69b.database.windows.net;port\u003d3342;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
@@ -112,11 +114,11 @@
 			"driver": "azure",
 			"name": "mgsqlsrv",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlsrv.database.windows.net",
 				"database": "mgdw",
-				"url": "jdbc:sqlserver://;serverName=mgsqlsrv.database.windows.net;databaseName=mgdw;encrypt=true",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlsrv.database.windows.net;databaseName\u003dmgdw;encrypt\u003dtrue",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
@@ -129,12 +131,12 @@
 			"driver": "microsoft",
 			"name": "MSC1-AVILLAMTNC",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
-				"host": "172.20.90.51",
+				"host": "172.20.89.14",
 				"port": "1433",
 				"database": "sps",
-				"url": "jdbc:sqlserver://;serverName=172.20.90.51;databaseName=sps",
+				"url": "jdbc:sqlserver://;serverName\u003d172.20.89.14;databaseName\u003dsps",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
@@ -148,35 +150,18 @@
 			"driver": "microsoft",
 			"name": "MSC1-BUSCHE-P6",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.3.80",
 				"port": "1433",
 				"database": "sps",
-				"url": "jdbc:sqlserver://;serverName=10.1.3.80;databaseName=sps",
+				"url": "jdbc:sqlserver://;serverName\u003d10.1.3.80;databaseName\u003dsps",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
-				}
-			}
-		},
-		"microsoft-181874ea664-7c5a2a207eef89c5": {
-			"provider": "sqlserver",
-			"driver": "microsoft",
-			"name": "MSCEDONHOSTBG",
-			"save-password": true,
-			"read-only": false,
-			"configuration": {
-				"host": "10.1.13.96",
-				"port": "1433",
-				"database": "sps",
-				"url": "jdbc:sqlserver://;serverName=10.1.13.96;databaseName=sps",
-				"type": "dev",
-				"provider-properties": {
-					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false"
-				}
+				},
+				"auth-model": "sqlserver_database"
 			}
 		},
 		"microsoft-181874ea695-7a5f67329ed293ff": {
@@ -184,17 +169,18 @@
 			"driver": "microsoft",
 			"name": "myDW-Kors",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlserver.database.windows.net",
 				"port": "1433",
 				"database": "myDW",
-				"url": "jdbc:sqlserver://;serverName=mgsqlserver.database.windows.net;databaseName=myDW",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmyDW",
+				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
-				}
+				},
+				"auth-model": "sqlserver_database"
 			}
 		},
 		"msaccess_ucanaccess-181874ea6ed-5d1549a5caf031fc": {
@@ -202,11 +188,474 @@
 			"driver": "msaccess_ucanaccess",
 			"name": "ToolBossPlt9aProduction",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"database": "/mnt/toolboss-plt9a/sps.mdb",
 				"url": "jdbc:ucanaccess:///mnt/toolboss-plt9a/sps.mdb",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"microsoft-181f8417763-e2feee698293e20": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "MSC-edon-ppe",
+			"save-password": true,
+			"configuration": {
+				"host": "10.1.13.99",
+				"port": "1433",
+				"database": "sps",
+				"url": "jdbc:sqlserver://;serverName\u003d10.1.13.99;databaseName\u003dsps",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-all-schemas@": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"mysql8-183b9c9b760-33cfb9606c167ef": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "moto",
+			"save-password": true,
+			"configuration": {
+				"host": "10.1.1.83",
+				"port": "31008",
+				"url": "jdbc:mysql://10.1.1.83:31008/",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-183c2a30bba-345de1765d754072": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "frt-ubu",
+			"save-password": true,
+			"configuration": {
+				"host": "frt-ubu",
+				"port": "30103",
+				"url": "jdbc:mysql://frt-ubu:30103/",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-183c2a7cb7a-70b9ccbff8b8f56e": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "avi-ubu",
+			"save-password": true,
+			"configuration": {
+				"host": "avi-ubu",
+				"port": "30102",
+				"url": "jdbc:mysql://avi-ubu:30102/",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-183ec9bf50e-373d0f125414db0": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports11",
+			"save-password": true,
+			"configuration": {
+				"host": "reports11",
+				"port": "30010",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports11:30010/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-183f7ce90ba-29274bbfc46450d5": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "alb-ubu",
+			"save-password": true,
+			"configuration": {
+				"host": "alb-ubu",
+				"port": "30101",
+				"url": "jdbc:mysql://alb-ubu:30101/",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18414f7b1fd-782a913c18b51953": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports31",
+			"save-password": true,
+			"configuration": {
+				"host": "reports31",
+				"port": "30031",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports31:30031/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"microsoft-18609ac887b-7e15c3d8ef9d6fc2": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "mgdw-mgsqlmi-alex",
+			"save-password": true,
+			"configuration": {
+				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
+				"port": "3342",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlmi.public.48d444e7f69b.database.windows.net;port\u003d3342;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "true"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"microsoft-18609ad2114-3692718e5894c864": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "HARTSELLE-SQL-1",
+			"save-password": true,
+			"configuration": {
+				"host": "HARTSELLE-SQL-1",
+				"port": "1433",
+				"database": "MACH2",
+				"url": "jdbc:sqlserver://;serverName\u003dHARTSELLE-SQL-1;databaseName\u003dMACH2",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"microsoft-18609c4e7a1-4e652df6f51ea0ed": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "HARTSELLE-SQL-1-sjackson",
+			"save-password": true,
+			"configuration": {
+				"host": "HARTSELLE-SQL-1",
+				"port": "1433",
+				"database": "MACH2",
+				"url": "jdbc:sqlserver://;serverName\u003dHARTSELLE-SQL-1;databaseName\u003dMACH2",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"mysql8-18638812763-441bc980ceb6cc84": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports51-innodb-cluster",
+			"save-password": true,
+			"configuration": {
+				"host": "reports51",
+				"port": "30051",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports51:30051/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"microsoft-186a9237c97-4aaa1f6d20cf7b64": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "gagetraker",
+			"save-password": true,
+			"configuration": {
+				"host": "etdsv01.busche-cnc.com",
+				"port": "1433",
+				"database": "master",
+				"url": "jdbc:sqlserver://;serverName\u003detdsv01.busche-cnc.com;databaseName\u003dmaster",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "true"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"postgres-jdbc-18796232d2c-46ae1a5f053e20fd": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres",
+			"save-password": true,
+			"configuration": {
+				"host": "moto",
+				"port": "5432",
+				"database": "hkp",
+				"url": "jdbc:postgresql://moto:5432/hkp",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-1879b9ee487-38de3bb06cc9aafe": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres-reports51",
+			"save-password": true,
+			"configuration": {
+				"host": "reports51",
+				"port": "5432",
+				"database": "hkp",
+				"url": "jdbc:postgresql://reports51:5432/hkp",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-188b16ce766-794c3ad2a6a012c2": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres-proxy",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "6432",
+				"database": "postgres",
+				"url": "jdbc:postgresql://localhost/zalando?user\u003dpostgres\u0026port\u003d6432\u0026sslmode\u003ddisable",
+				"configurationType": "URL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20",
+					"loginTimeout": "20",
+					"escapeSyntaxCallMode": "callIfNoReturn",
+					"ssl": ""
+				},
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"read-keys-with-columns": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
+				"auth-model": "native",
+				"handlers": {
+					"socks_proxy": {
+						"type": "PROXY",
+						"enabled": true,
+						"save-password": true,
+						"properties": {
+							"socks-host": "",
+							"socks-port": 1080.0
+						}
+					}
+				}
+			}
+		},
+		"postgres-jdbc-18903535265-10b56f98ee228ae9": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres-devcon2",
+			"save-password": true,
+			"configuration": {
+				"host": "devcon2",
+				"port": "5432",
+				"database": "postgres",
+				"url": "jdbc:postgresql://devcon2:5432/postgres",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"sqlite_jdbc-18a8b534a8d-6efe3abcc294c1c1": {
+			"provider": "sqlite",
+			"driver": "sqlite_jdbc",
+			"name": "feathers-chat.sqlite",
+			"save-password": true,
+			"configuration": {
+				"database": "/home/brent/src/feathers-chat/feathers-chat.sqlite",
+				"url": "jdbc:sqlite:/home/brent/src/feathers-chat/feathers-chat.sqlite",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18af1f664d9-6ad166986866575b": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports31-2nd-instance",
+			"save-password": true,
+			"configuration": {
+				"host": "reports31",
+				"port": "30034",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports31:30034/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18b4517f3fa-6dbbc2268063e999": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "InnoDB-proxy-running",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-18b635e8de2-1e45831fe76249a1": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres-nodeport-reports51",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "6432",
+				"database": "postgres",
+				"url": "jdbc:postgresql://reports51/zalando?user\u003dpostgres\u0026port\u003d30451\u0026sslmode\u003drequire",
+				"configurationType": "URL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20",
+					"loginTimeout": "20",
+					"escapeSyntaxCallMode": "callIfNoReturn",
+					"ssl": ""
+				},
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"read-keys-with-columns": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false"
+				},
+				"auth-model": "native",
+				"handlers": {
+					"socks_proxy": {
+						"type": "PROXY",
+						"enabled": true,
+						"save-password": true,
+						"properties": {
+							"socks-host": "",
+							"socks-port": 1080.0
+						}
+					}
+				}
+			}
+		},
+		"mysql8-18b975bf986-10007edd470662fa": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports11 1",
+			"save-password": true,
+			"configuration": {
+				"host": "reports11",
+				"port": "30010",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports11:30010/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18b977efe98-79958a61a4ffb277": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports11-ingress",
+			"save-password": true,
+			"configuration": {
+				"host": "reports11",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports11:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-18b97b3cc13-540196442f93e1d2": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports51-ingress",
+			"save-password": true,
+			"configuration": {
+				"host": "reports51",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports51:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
 				"auth-model": "native"
 			}
 		}
@@ -219,7 +668,10 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"auto-close-transactions": false
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800
 		}
 	}
 }

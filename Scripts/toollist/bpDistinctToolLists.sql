@@ -17,7 +17,7 @@ BEGIN
 	from bvDistinctToollists
 end;
 
-
+select top 5 * from bvDistinctToollists
 -- dbo.bvDistinctToolLists source
 
 create view [dbo].[bvDistinctToolLists]

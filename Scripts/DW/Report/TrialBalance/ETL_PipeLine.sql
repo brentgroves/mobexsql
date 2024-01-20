@@ -1,25 +1,171 @@
-select count(*) from Plex.accounting_account  -- 19,286,19,176
-select count(*) from Scratch.accounting_account_06_03  -- 19,286  -- 19,286,19,176
+	with account_year_category_type
+	as
+	(
+		select a.*
+		-- select count(*)
+		from Plex.accounting_account a  
+		inner join Plex.accounting_account_year_category_type y
+		on a.pcn = y.pcn 
+		and a.account_no =y.account_no
+		where y.[year] = 2021 
+		and a.pcn = 123681
+	)
+	-- select count(*) from account_year_category_type; 
+	,add_account_year_category_type
+	as 
+	( 	select a.*
+		from Plex.accounting_account a  
+		left outer join account_year_category_type y 
+		on a.pcn = y.pcn 
+		and a.account_no =y.account_no
+		where y.pcn is null -- there is no account_year_category_type records for the @prev_period year so we must add them.
+		and a.pcn = 123681
+	)
+	select * from add_account_year_category_type;
 
-select count(*) from Plex.accounting_account_year_category_type aayct  -- 24,811, 24,767, 24,723
+select * 
+--into Archive.Script_History_06_06
+from ETL.Script_History sh 
+where Script_Key in (1,3,4,5,6,7,8,116,117)
+and Start_Time > '2022-08-26' 
+order by Script_History_Key desc
+-- delete from ETL.Script_History
+where Script_Key in (1,3,4,5,6,7,116,117)
+and Start_Time > '2022-07-11' 
+-- delete from ETL.Script_History where Start_Time > '2022-07-11' and Script_Key in (1,3,4,5,6,116,117)
+select * from ETL.Script s 
+
+-2. Run the Accounting_account ETL script.  
+Issue: This is used to generate records in account_period_balance. Since the previous 12 months account_period_balance gets  regenerated 
+when a new period gets appended if the category type changes or an account somehow gets removed the previous 12 months worth of records get be affected.  
+
+-1: AccountingYearCategoryType: Run this ETL Script in late December.   
+It is used to add account category records for each year.  up 
+This is needed in YTD calculations which rely on if an account  
+is a revenue/expense to determine whether to reset YTD values to 0 for every year. 
+
+0. Run the Accounting_period ETL script 
+Accounting_period ETL script is used to refresh the DW accounting_period table containing  
+start and end period dates and fiscal order info. I think period in the distant future get added periodically. 
+ 
+1. AccountingBalanceUpdatePeriodRange ETL script to update the Plex.accounting_balance_update_period_range table  
+select * from Plex.accounting_balance_update_period_range abupr  
+Validated: 2022-02-18
+
+2. Run the AccountingBalanceAppendPeriodRange ETL script which uses the values in the the Plex.accounting_balance_update_period_range table 
+to determine what range of Plex.accounting_balance records to update. 
+a. run the Plex.accounting_balance_delete_period_range 
+-- SELECT distinct pcn,period FROM Plex.accounting_balance order by pcn,period 
+--delete from Plex.accounting_balance where pcn = 300758
+b. run the Plex.accounting_balance_append_period_range_DW_Import procedure to refresh/add Plex.accounting_balance records with current values. 
+Validated: 2022-02-18
+
+
+3. run the AccountPeriodBalanceDeletePeriodRange ETL Script to delete the periods that are to be recalculated 
+-- select distinct pcn,period from Plex.account_period_balance apb order by pcn,period
+--using start and end period in the Plex.accounting_balance_update_period_range table. 
+Validated: 2022-02-18
+
+4. Run the AccountPeriodBalanceRecreatePeriodRange ETL Script to run the Plex.account_period_balance_recreate_period_range procedure 
+-- select distinct pcn,period from Plex.account_period_balance order by pcn,period
+Validated: 2022-02-18
+
+5. Add or update Plex.trial_balance_multi_level records using the TrialBalance ETL script.  If you are sure there have been no changes 
+to previous period values then just run the script for the current period. 
+select distinct pcn,period from Plex.trial_balance_multi_level order by pcn,period
+
+6. Add or update Plex.Account_Balances_by_Periods using the AccountBalancesByPeriod  ETL script.  If you are sure there have been no changes 
+to previous period values then just run the script for the current period. 
+select distinct pcn,period from Plex.Account_Balances_by_Periods order by pcn,period
+select count(*)  from Plex.Account_Balances_by_Periods -- 705,481/701,277
+
+7. Add or update Plex.GL_Account_Activity_Summary using the GLAccountActivitySummary  ETL script.  If you are sure there have been no changes 
+to previous period values then just run the script for the current period. 
+select distinct pcn,period from Plex.GL_Account_Activity_Summary order by pcn,period
+select count(*) from Plex.GL_Account_Activity_Summary order by pcn,period
+
+
+8. Go to the Plex Account Activity by Period screen to check bookings that happened after the Plex snapshot.
+
+9. Go to Plex SDE to the AccountingAccountSummaryOpenPeriodDetail summary 
+Use the Plex AccountingAccountSummaryOpenPeriodDetail procedure to show the bookings for a single account.
+select * from #result where account_no = '20100-000-0000'
+and (credit <> 0 or debit <> 0)
+and credit = 12408
+
+10. Determine the last booking that appears in the Plex data snapshot.
+11. Sum any bookings that happened after the Plex data snapshot and this should be the amount the 
+Plex.account_period_balance record should be off from the TrialBalance value.
+
+12. Validate period balance calculations from Plex.account_period_balance_validate  
+-- mgdw.Plex.accounting_balance definition
+select * 
+-- into Archive.Script_History_06_06
+from ETL.script_history sh 
+where script_key in (1,3,4,5,6,7,8,116,117)
+and start_time > '2022-07-27' 
+order by script_history_key desc
+-- delete from ETL.script_history
+where script_key in (1,3,4,5,6,7,8,116,117)
+and start_time > '2022-07-11' 
+-- delete from ETL.Script_History where Start_Time > '2022-07-11' and Script_Key in (1,3,4,5,6,116,117)
+select * from ETL.Script s 
+
+select count(*) from Plex.accounting_account_year_category_type aayct  -- 33,096/24,811/16,526, 24,767, 24,723
 select count(*) from Scratch.accounting_account_year_category_type aayct  -- 24,811, 24,767, 24,723
 
-select count(*) from Plex.accounting_period ap -- 1418
-select count(*) from Scratch.accounting_period ap -- 1418
-select * from Plex.accounting_period
-where pcn = 123681 and period between 202201 and 202206 -- 2022-06-03 19:50:00.000
+select * from Plex.accounting_account  -- 19,286,19,176
+select count(*) from Plex.accounting_account  -- 8,285,19,286,19,176
+select count(*) from Scratch.accounting_account_06_03  -- 19,286  -- 19,286,19,176
+select count(*) from Scratch.accounting_account
+
+select count(*) from Plex.accounting_period ap -- 1276,1418
+
+select distinct pcn,period,ordinal 
+from Plex.accounting_period 
+where period between 202201 and 202208 -- 2022-06-03 19:50:00.000
+order by pcn,period,ordinal 
+
+select * 
+select count(*)
+from Plex.accounting_period
+where pcn = 123681 and period between 202201 and 202208 -- 2022-06-03 19:50:00.000
 order by pcn,period 
 
-select * from Plex.accounting_balance_update_period_range -- 202105/202204
-select * from Scratch.accounting_balance_update_period_range -- 202105/202204
+select * from Plex.accounting_period_ranges
+
+--select * from Plex.accounting_balance_update_period_range -- 202105/202204
+--select * from Scratch.accounting_balance_update_period_range -- 202105/202204
 
 --exec Plex.accounting_balance_delete_period_range
-select count(*) from Plex.accounting_balance ab -- 48,114,40,883
+select count(*) from Plex.accounting_balance ab -- 48,697/48,114/44,277 only 1 pcn,40,883
+select distinct pcn,period from Plex.accounting_balance 
+where period > 202100
+order by pcn,period  -- 41,293
 select count(*) from Scratch.accounting_balance ab -- 48,114, 48,023/ 47,546 / 46,926
 
+
+select count(*) from Plex.accounting_account_summary_open_period -- 375/313/311
+select * from Plex.accounting_account_summary_open_period  -- 311
+
 --exec Plex.account_period_balance_delete_period_range
-select count(*) from Plex.account_period_balance apb -- 140,713/41,293 132,428,123,659,131,900, 123,615
+select count(*) from Plex.account_period_balance apb -- 157,283/49,578,149,624,148,998/140,713/100,365 132,428,123,659,131,900, 123,615
+where period = 202207  -- 178
+
+57,863 - 49,578 = 8,285
+select count(*) 
+from Plex.account_period_balance apb -- 149,624,148,998/140,713/100,365 132,428,123,659,131,900, 123,615
+where pcn=123681
+and period = 202207  -- 4,617
+and period = 202206  -- 4,617
 select count(*) from Scratch.account_period_balance apb -- 140,713/ 132,428,123,659,131,900, 123,615
+-- select distinct pcn,period from Scratch.account_period_balance order by pcn,period  -- 41,293
+select distinct pcn,period from Plex.account_period_balance order by pcn,period  -- 41,293
+
+/* backup */
+select * 
+into Archive.account_period_balance_2022_07_19 -- 148,998
+from Plex.account_period_balance apb -- 140,713/41,293 132,428,123,659,131,900, 123,615
 
 
 --exec Scratch.account_period_balance_recreate_period_range
@@ -109,16 +255,24 @@ and pcn = 123681
 2022-05-18 13:55:00.000
 2022-06-13 08:35:00.000
 
+select * from ETL.Script s 
+
+select getdate()
+select * from ETL.Script_History  
+-- delete from ETL.Script_History  
+where Script_Key in (1,3,4,5,6,116,117)
+and start_time > '2022-07-11'
+
 select * 
 --into Archive.Script_History_06_06
 from ETL.Script_History sh 
 where Script_Key in (1,3,4,5,6,116,117)
-and Start_Time > '2022-06-21' 
+and Start_Time > '2022-07-11' 
 order by Script_History_Key desc
 -- delete from ETL.Script_History
 where Script_Key in (1,3,4,5,6,116,117)
 and Start_Time > '2022-06-15' 
-
+-- delete from ETL.Script_History where Start_Time > '2022-07-11' and Script_Key in (1,3,4,5,6,116,117)
 select * from ETL.Script s 
 -- mgdw.Plex.accounting_balance definition
 

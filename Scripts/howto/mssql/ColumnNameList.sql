@@ -1,0 +1,8 @@
+SELECT
+        TABLE_SCHEMA, ',' + COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE
+    FROM
+        INFORMATION_SCHEMA.COLUMNS
+    WHERE
+        TABLE_NAME = 'account_period_balance'
+       AND TABLE_SCHEMA = 'Plex'
+    ORDER BY 3

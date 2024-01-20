@@ -1,3 +1,12 @@
+--Is GL_Activity_Summary missing accounts like the TB report itself?  Does it have all the accounts that accounting_v_balance has? Yes. I checked 10120-000-0000, 10125-000-0000, to be sure compare it to the accounting_balance table for a closed period. 
+--If we add account activity found in the account activity by date report to that which is pulled from the GL_Activity_Summary procedure we do get the amounts shown in the Plex TB report. 
+--Plex Reports: Account_Activity_By_Date, Account_Activity_by_period 
+--Is there a web service for account activity that we could use so that we could get the exact same values as the Plex TB report for the open period? 
+--Web Service Review: Did a customer data source search on data source name GL 
+--GL_Journal_Transactions_by_Date_Report 
+--GL_Account_Activity_Detail_Report 
+accounting_account_summary_open_period
+
 -- drop table Plex.GL_Account_Activity_Summary
 -- truncate table Plex.GL_Account_Activity_Summary
 CREATE TABLE Plex.GL_Account_Activity_Summary
@@ -13,6 +22,10 @@ CREATE TABLE Plex.GL_Account_Activity_Summary
     PCN,period,account_no
   )
 );
+select * from Plex.GL_Account_Activity_Summary
+insert into Plex.GL_Account_Activity_Summary(pcn,period,account_no,debit,credit,net)
+
+
 /*
 	a.pcn,
 	'' revenue,  -- the account_balances_by_periods plex authored procedure shows only blank values in the query and csv file for Albion and Southfield.
@@ -48,8 +61,11 @@ where period between 202202 and 202204 and pcn = 123681
  */
 select s.pcn,s.period, s.account_no,s.debit,s.credit,s.net
 -- select distinct pcn,period
---select count(*)
+--select count(*) 
 --select *
+into Archive.GL_Account_Activity_Summary_07_18_2022 --40,092
+--into Archive.GL_Account_Activity_Summary_07_15_2022 --40,092
+--into Archive.GL_Account_Activity_Summary_07_12_2022 --39,849
 --into Archive.GL_Account_Activity_Summary_06_14_2022 --39,849
 --into Archive.GL_Account_Activity_Summary_06_11_2022 --39,845
 --into Archive.GL_Account_Activity_Summary_06_04_2022 --39,836
@@ -59,7 +75,8 @@ select s.pcn,s.period, s.account_no,s.debit,s.credit,s.net
 --into Archive.GL_Account_Activity_Summary_04_07_2022 --38,876
 --into Archive.GL_Account_Activity_Summary_01_27_2022 38,377
 from Plex.GL_Account_Activity_Summary s  --(),(221,202010)  -- 38,208/38,377/38,634
-where s.period = 202205  -- 237
+where s.period = 202206  -- 243
+--where s.period = 202205  -- 237
 
 --where s.period = 202201  --243/242
 --where s.period = 202202  --230
@@ -88,7 +105,8 @@ select s.pcn,s.period, s.account_no,s.debit,s.credit,s.net
 --into Archive.GL_Account_Activity_Summary_04_07_2022 --38,876
 --into Archive.GL_Account_Activity_Summary_01_27_2022 38,377
 from Plex.GL_Account_Activity_Summary s  --(),(221,202010)  -- 39,845/38,208/38,377/38,634
-where s.period = 202205  --237/233/224
+where s.period = 202206  --243
+--where s.period = 202205  --237/233/224
 --where s.period = 202204  --254
 --where s.period = 202203  --250
 --where s.period = 202202  --229

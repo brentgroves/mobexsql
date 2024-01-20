@@ -20,4 +20,8 @@ CREATE TABLE plx_Detailed_Production_History (
 	Add_By varchar(50) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 );
 --TRUNCATE table plx_Detailed_Production_History
-select * from plx_Detailed_Production_History
+select top 10 * from plx_Detailed_Production_History
+select count(*) cnt from plx_Detailed_Production_History
+select count(*)
+
+

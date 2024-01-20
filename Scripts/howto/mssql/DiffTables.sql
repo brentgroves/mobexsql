@@ -1,0 +1,1 @@
+SELECT * FROM robot intersect SELECT * FROM tbd_robot

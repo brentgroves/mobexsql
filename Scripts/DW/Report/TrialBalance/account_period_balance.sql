@@ -41,7 +41,7 @@ ORDER BY pcn, period
 /*
  * For Power BI report
  */
-drop PROCEDURE Report.trial_balance
+-- drop PROCEDURE Report.trial_balance
 exec Report.trial_balance 202105,202205
 CREATE PROCEDURE Report.trial_balance
 @start_period int,
@@ -83,5 +83,35 @@ order by b.period,a.account_no
 --where b.period_display is NULL -- 40,940
 --where a.account_no = '10220-000-00000' 
 END;
+select distinct pcn,period
+from Plex.account_period_balance apb 
+order by pcn, period 
 
-
+SELECT
+        TABLE_SCHEMA, ',' + COLUMN_NAME, ORDINAL_POSITION, DATA_TYPE
+    FROM
+        INFORMATION_SCHEMA.COLUMNS
+    WHERE
+        TABLE_NAME = 'account_period_balance'
+       AND TABLE_SCHEMA = 'Plex'
+    ORDER BY 3
+    
+insert into (pcn,account_no,period,period_display,debit,ytd_debit,credit,ytd_credit,balance,ytd_balance)    
+values ()
+select 
+,pcn
+,account_no
+,period
+,period_display
+,debit
+,ytd_debit
+,credit
+,ytd_credit
+,balance
+,ytd_balance
+-- select count(*)
+-- select distinct pcn,period  
+from Plex.account_period_balance apb -- 148,998
+where pcn in (123681,300758)
+and period between 202101 and 202206
+order by pcn, period 

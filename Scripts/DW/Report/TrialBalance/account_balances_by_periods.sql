@@ -48,7 +48,10 @@ select * from Plex.trial_balance_2020_01
 /*
  * Make a backup
  */
+-- select count(*) from Plex.Account_Balances_by_Periods
 select * 
+into Archive.Account_Balances_by_Periods_2022_07_23  -- 697,073/692869/671,849/663,441
+-- into Archive.Account_Balances_by_Periods_07_12_2022  -- 692869/671,849/663,441
 --into Archive.Account_Balances_by_Periods_06_11_2022  -- 692869/671,849/663,441
 --into Archive.Account_Balances_by_Periods_06_01_2022  -- 671,849/663,441
 from Plex.Account_Balances_by_Periods
@@ -63,6 +66,9 @@ set pcn = 123681 where pcn is null -- 4204
 
 select count(*)
 from Plex.Account_Balances_by_Periods 
+-- where pcn=123681 and period=202208  -- 4204
+where pcn=123681 and period=202207  -- 4204
+where pcn=123681 and period=202206  -- 4204
 where pcn=123681 and period=202205  -- 4204
 --where pcn=123681 and period=202204  -- 4204
 --and [no] like '73250%' --0 

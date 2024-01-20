@@ -1,1 +1,1 @@
-SELECT top 100 * FROM items
+SELECT count(*) FROM items

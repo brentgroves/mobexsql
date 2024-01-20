@@ -1,3 +1,14 @@
+
+-- TRUNCATE table Scratch.accounting_account aa 
+
+select * 
+-- select count(*)
+from Scratch.accounting_account aa -- 4617
+
+select * 
+-- select count(*)
+from Plex.accounting_account aa -- 19,286
+
 /*
  * If the category_type is 'Revenue' or 'Expense' NO reset of YTD credit/debit values will occur in the TB report.
  */

@@ -1,0 +1,1 @@
+SELECT * from sys.database_principals

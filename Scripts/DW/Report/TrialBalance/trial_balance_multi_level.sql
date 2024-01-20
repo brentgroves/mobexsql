@@ -23,6 +23,8 @@ where period = 202203
 select * 
 -- select count(*)
 --select count(*) from Archive.trial_balance_multi_level_01_02_2022  -- 668,436 (200812-202112) -- I deleted 202112 because this period did not close as of 01-07-2022.
+-- into Archive.trial_balance_multi_level_2022_07_23--693,660
+
 --into Archive.trial_balance_multi_level_06_11_2022--689456
 
 --into Archive.trial_balance_multi_level_05_13_2022--685252
@@ -31,21 +33,24 @@ from Plex.trial_balance_multi_level  -- 58,856
 
 where period_display like '%Total%'  -- 4204  
 
--- 
-/*
- * The last account_no record contains a total record with a YTD debit_credit value 
- * which is the same as that found in the last periods ytd_debit_credit column
- */
 
-select s1.*,s2.current_debit_credit 
--- select count(*)
-from Plex.trial_balance_multi_level s1  -- 58,856
-join Plex.trial_balance_multi_level s2
-on s1.account_no=s2.account_no
-and s1.ytd_debit_credit=s2.current_debit_credit
-and s2.period_display='Total'
-and s1.period_display='12-2009'  -- 4,204
-order by s1.account_no
+/*
+ * Decide which TB periods to pull by  
+ * each period has 2 records. ordinal 1 is the most recent
+ * last update: 02-10-2023
+ * If update_date is greater than last update then import that period.
+ * goto Main Compare: section and locate the last period to have any differences
+ * and import all periods after and including that one.
+ * 03-02-2023: Pulled 202212 to 202301
+ * 03-09-2023: Pulled 202302 to 202303 since there where no updates on 202301 since 2023-02-27
+ */
+select pcn,period,add_date,update_date 
+from Plex.accounting_period p1  
+where pcn = 123681
+and ordinal =1
+and period between 202201 and 202303
+order by period DESC 
+
 
 /*
  * Must delete ending comma from each line before running TrialBalance ETL script.  regular expression is ',$'
@@ -53,14 +58,23 @@ order by s1.account_no
 /*
  * Must cleanup Total lines when importing CSV
  */
+select * from Plex.trial_balance_multi_level
+-- where period = 202207 and account_no ='11010-000-0000'  -2,073,940.64	10,978,886.75
 --delete from Plex.trial_balance_multi_level
-where period_display='Total'  --4,204
+where period_display='Total'  --4,204  
+-- and account_no ='11010-000-0000'  --1,161,012.00
 
-update Plex.trial_balance_multi_level -- 4204
-set period = cast (right(period_display,4) + left(period_display,2) as int),
+-- update Plex.trial_balance_multi_level -- 4204
+--set period = cast (left(period_display,4) + right(period_display,2) as int), -- Albion PCN
+ set period = cast (right(period_display,4) + left(period_display,2) as int), -- Southfield
 pcn = 123681
 where pcn is null
-,
+
+--period_display final format is 01-2009
+--In Plex the format has changed from mm-yyyy to yyyy-mm
+select * from Plex.trial_balance_multi_level
+where pcn is null
+
 
 select *
 --SELECT DISTINCT pcn,period
@@ -68,7 +82,28 @@ select *
 --select count(*)
 from Plex.trial_balance_multi_level
 --order by pcn,period_display  
-where pcn=123681 and period=202205  -- 4204.
+where pcn=123681 and period=202401  -- 4204.
+where pcn=123681 and period=202312  -- 4204.
+where pcn=123681 and period=202311  -- 4204.
+where pcn=123681 and period=202310  -- 4204.
+where pcn=123681 and period=202309  -- 4204.
+where pcn=123681 and period=202308  -- 4204.
+where pcn=123681 and period=202307  -- 4204.
+where pcn=123681 and period=202306  -- 4204.
+where pcn=123681 and period=202305  -- 4204.
+-- where pcn=123681 and period=202304  -- 4204.
+-- where pcn=123681 and period=202303  -- 4204.
+-- where pcn=123681 and period=202302  -- 4204.
+-- where pcn=123681 and period=202301  -- 4204.
+-- where pcn=123681 and period=202212  -- 4204.
+-- where pcn=123681 and period=202212  -- 4204.
+-- where pcn=123681 and period=202211  -- 4204.
+-- where pcn=123681 and period=202210  -- 4204.
+-- where pcn=123681 and period=202209  -- 4204.
+-- where pcn=123681 and period=202208  -- 4204.
+-- where pcn=123681 and period=202207  -- 4204. 
+-- where pcn=123681 and period=202206  -- 4204.
+--where pcn=123681 and period=202205  -- 4204.
 --where pcn=123681 and period=202204  -- 4204.
 --where pcn=123681 and period=202203  -- 4204.
 --where pcn=123681 and period=202202  -- 4204.

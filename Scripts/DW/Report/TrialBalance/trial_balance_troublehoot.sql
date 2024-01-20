@@ -1,3 +1,6 @@
+1. ARE the SSIS scripts running?
+- https://portal.azure.com/
+- DATA factories/mg-adf
 select * from Plex.accounting_account  -- 19,286,19,176
 where account_no like '73250%' --22 73250 
 select * from Plex.account_period_balance apb -- 131,900, 123,615

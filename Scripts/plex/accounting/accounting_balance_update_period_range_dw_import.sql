@@ -41,7 +41,7 @@ SELECT @first_day_prev_month = DATEADD(day, 1,EOMONTH (GETDATE(), -2));
 
 
 
---select @prev_year prev_year,@start_period start_period,@first_day_prev_month first_day_prev_month,@last_day_prev_month last_day_prev_month;
+-- select @prev_year prev_year,@start_period start_period,@first_day_prev_month first_day_prev_month,@last_day_prev_month last_day_prev_month;
 
 with start_period
 as 
@@ -53,39 +53,41 @@ as
     select tuple from #list
   )	
   and @prev_year between ap.begin_date and ap.end_date
-),
---select * from start_period
-balance
+)
+-- select * from start_period
+,open_period
 as 
 (
-  select distinct plexus_customer_no pcn, period  from accounting_v_balance_e b
-  where b.plexus_customer_no in 
+  --select plexus_customer_no pcn,period  
+  select  *
+  from accounting_v_period_e ap
+  where ap.plexus_customer_no in 
   (
     select tuple from #list
-  )
-),
-add_dates
+  )	
+  and ap.period_status = 1  
+)
+-- select * from open_period;
+,min_open_period
 as 
 (
-select b.pcn,b.period,p.begin_date,p.end_date
-from accounting_v_period_e p 
-inner join balance b
-on p.plexus_customer_no=b.pcn 
-and p.period=b.period
-where p.end_date between @first_day_prev_month and @last_day_prev_month
-
-),
---select * from add_dates;
-last_full_period
-as
-(
-  select pcn,max(period) last_full_period from add_dates group by pcn
+  select plexus_customer_no pcn,min(period) period
+  from open_period
+  group by plexus_customer_no
 )
---select * from last_full_period;
--- After 202202 use this code
---select s.pcn,s.start_period,l.last_full_period end_period
-select s.pcn,202102 start_period,l.last_full_period end_period
+-- select * from min_open_period
+,last_closed_before_min_open_period
+as 
+(
+  select pcn,period,
+  case
+  when (period%100)=1 then (((period/100)-1)*100)+12
+  else period-1
+  end prev_period
+  from min_open_period mop
+)
+-- select * from last_closed_before_min_open_period
+select s.pcn,s.start_period,l.prev_period end_period, l.period open_period
 from start_period s
-inner join last_full_period l
+inner join last_closed_before_min_open_period l
 on s.pcn=l.pcn;
-
