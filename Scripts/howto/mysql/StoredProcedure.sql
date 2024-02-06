@@ -1,3 +1,28 @@
+call recordings.getAlbumsByName( "John Coltrane")
+-- drop procedure recordings.getAlbumsByName;
+create procedure recordings.getAlbumsByName
+(
+	in v_name varchar(25)
+)
+begin
+SELECT * FROM recordings.album WHERE artist = v_name;
+end;
+
+create procedure recordings.getAlbumsByName
+(	
+	IN v_pcn int,
+	OUT v_period_start int,
+	OUT v_period_end int
+)
+BEGIN   
+	select period_start,period_end into v_period_start,v_period_end 
+	from Plex.accounting_balance_update_period_range
+	WHERE pcn=v_pcn;
+	
+END; 
+
+select * from recordings.album a 
+
 --RETURN CONDITION 
 create procedure Plex.account_period_balance_recreate_open_period_range
 (
