@@ -1,6 +1,82 @@
-call recordings.getAlbumsByName( "John Coltrane")
--- drop procedure recordings.getAlbumsByName;
-create procedure recordings.getAlbumsByName
+-- recordings.accounting_period_ranges definition
+
+-- Drop table
+
+-- DROP TABLE recordings.accounting_period_ranges;
+
+CREATE TABLE recordings.accounting_period_ranges (
+	id int NOT NULL AUTO_INCREMENT,
+	pcn int NULL,
+	start_period int NULL,
+	end_period int NULL,
+	start_open_period int NULL,
+	end_open_period int NULL,
+	no_update bit null,
+	CONSTRAINT PK_accounting_period_range PRIMARY KEY (id)
+);
+show indexes from recordings.accounting_period_ranges;
+SHOW CREATE TABLE recordings.accounting_period_ranges;
+
+select * from recordings.accounting_period_ranges 
+
+-- show indexes from Plex.accounting_account 
+-- CREATE INDEX idx_accounting_account_pcn_account_no ON Plex.accounting_account(pcn,account_no);
+-- CREATE INDEX idx_accounting_account_pcn_account_no ON Plex.accounting_account(pcn,account_no,peri);
+
+select * from recordings.accounting_period_ranges
+-- delete from recordings.accounting_balance_update_period_range
+
+INSERT INTO recordings.accounting_period_ranges (pcn,start_period,end_period,start_open_period,end_open_period,no_update)
+VALUES
+(123681,202301,202311,202312,202401,1)
+
+-- update Plex.accounting_balance_update_period_range
+set period_start = 202103,
+period_end = 202202
+
+select * from recordings.accounting_period_ranges
+set @pcn := 123681;
+call recordings.accounting_get_period_ranges(@pcn,@start_period,@end_period,@start_open_period,@end_open_period,@no_update);
+select @pcn pcn,@start_period start_period,@end_period end_period,@start_open_period,@end_open_period,@no_update;
+-- drop procedure recordings.accounting_get_period_ranges
+create procedure recordings.accounting_get_period_ranges
+(	
+	IN v_pcn int,
+	OUT v_start_period int,
+	OUT v_end_period int,
+	OUT v_start_open_period int,
+	OUT v_end_open_period int,
+	out v_no_update bit
+)
+BEGIN   
+	select start_period,end_period,start_open_period,end_open_period,no_update 
+	into v_start_period,v_end_period,v_start_open_period,v_end_open_period,v_no_update 
+	from recordings.accounting_period_ranges
+	WHERE pcn=v_pcn;
+	
+END; 
+
+    declare @period_start_out int; 
+    declare @period_end_out int;
+    EXEC records.accounting_balance_get_period_range @pcn = ?,@period_start = @period_start_out OUTPUT,@period_end = @period_end_out OUTPUT;
+    SELECT @period_start_out AS period_start, @period_end_out as period_end;
+
+   	set @pcn := 123681;
+	call Plex.accounting_balance_get_period_range(@pcn,@period_start,@period_end);
+	select @period_start period_start,@period_end period_end;
+
+   
+    plsql = """\
+	call Plex.accounting_balance_get_period_range(@pcn = ?,@period_start,@period_end);
+	select @period_start period_start,@period_end period_end;
+    """
+
+
+call recordings.getAlbumsByArtist( "John Coltrane")
+call recordings.getAlbumsByArtist( "Gerry Mulligan")
+SELECT * FROM recordings.album WHERE artist = v_name;
+-- drop procedure recordings.getAlbumsByArtis;
+create procedure recordings.getAlbumsByArtist
 (
 	in v_name varchar(25)
 )
