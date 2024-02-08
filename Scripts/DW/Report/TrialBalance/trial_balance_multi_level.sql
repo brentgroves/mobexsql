@@ -22,7 +22,8 @@ where period = 202203
 
 select * 
 -- select count(*)
---select count(*) from Archive.trial_balance_multi_level_01_02_2022  -- 668,436 (200812-202112) -- I deleted 202112 because this period did not close as of 01-07-2022.
+--select count(*) from Archive.trial_balance_multi_level_01_02_2022  -- 773,536(2024_02_08)#668,436 (200812-202112) -- I deleted 202112 because this period did not close as of 01-07-2022.
+ into Archive.trial_balance_multi_level_2024_02_08--693,660
 -- into Archive.trial_balance_multi_level_2022_07_23--693,660
 
 --into Archive.trial_balance_multi_level_06_11_2022--689456
@@ -82,7 +83,7 @@ select *
 --select count(*)
 from Plex.trial_balance_multi_level
 --order by pcn,period_display  
-where pcn=123681 and period=202401  -- 4204.
+--where pcn=123681 and period=202401  -- 4204.
 where pcn=123681 and period=202312  -- 4204.
 where pcn=123681 and period=202311  -- 4204.
 where pcn=123681 and period=202310  -- 4204.
