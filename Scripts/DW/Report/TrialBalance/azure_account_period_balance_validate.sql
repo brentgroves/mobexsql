@@ -14,7 +14,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-08 00:00:00' and '2024-02-09 00:00:00' 
+and start_time between '2024-02-09 00:00:00' and '2024-02-10 00:00:00' 
 --and start_time between '2024-01-09 00:00:00' and '2024-01-10 00:00:00' 
 order by script_history_key desc
 
@@ -192,7 +192,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-08 00:00:00' and '2024-02-09 00:00:00' 
+and start_time between '2024-02-09 00:00:00' and '2024-02-10 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -318,7 +318,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-08 00:00:00' and '2024-02-09 00:00:00' 
+and start_time between '2024-02-09 00:00:00' and '2024-02-10 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -645,10 +645,12 @@ and d.account_no != '73100-000-0000' -- 3/202212-202401#0/202207-202307,0/202206
 -- Conclusion: The Plex TB report and Plex authored procedure is wrong to not reset YTD values.
 
 /* These values are not equal 
-202401	11010-000-0000	71300.98000	19036.59	9941686.76000	9889422.38
-202401	24100-000-0000	-403430.93000	-401863.00	-2144485.56000	-2142917.63
-202401	41100-000-0000	-12442865.83000	-12390601.45	-12442865.83000	-12390601.45
-202401	77300-850-0000	379667.36000	378099.43	379667.36000	378099.43
+202401	11050-000-9806	-5105344.60000	-5097012.78	-13710092.10000	-13701760.28
+202401	18900-000-9810	50254.17000	52162.92	1078039.44000	1079948.19
+202401	20400-000-0000	-279849.97000	-255320.78	-1806932.17000	-1782402.98
+202401	22700-000-0000	-1048.56000	-8102.31	-784.91000	-7838.65
+202401	27800-000-9802	-32194.00000	-56723.19	-10656030.66000	-10680559.85
+202401	68400-850-0000	3907.13000	2629.06	3907.13000	2629.06
  */
 
 --From Plex download trial balance multi level report from the determined period range
