@@ -34,6 +34,25 @@ VALUES
 set period_start = 202103,
 period_end = 202202
 
+-- Simple output param test 
+select * from recordings.accounting_period_ranges
+set @pcn := 123681;
+call recordings.accounting_get_start_period(@pcn,@start_period);
+select @pcn pcn,@start_period start_period;
+-- drop procedure recordings.accounting_get_period_ranges
+create procedure recordings.accounting_get_start_period
+(	
+	IN v_pcn int,
+	OUT v_start_period int
+)
+BEGIN   
+	select start_period 
+	into v_start_period 
+	from recordings.accounting_period_ranges
+	WHERE pcn=v_pcn;
+	
+END; 
+
 select * from recordings.accounting_period_ranges
 set @pcn := 123681;
 call recordings.accounting_get_period_ranges(@pcn,@start_period,@end_period,@start_open_period,@end_open_period,@no_update);
@@ -71,6 +90,7 @@ END;
 	select @period_start period_start,@period_end period_end;
     """
 
+select * from recordings.accounting_period_ranges    
 
 call recordings.getAlbumsByArtist( "John Coltrane")
 call recordings.getAlbumsByArtist( "Gerry Mulligan")
