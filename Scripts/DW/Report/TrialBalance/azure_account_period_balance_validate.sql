@@ -8,6 +8,7 @@ SELECT
     [Procedure_Name],
     [Text]
   FROM Plex.Datasource_Text
+
   
 select s.Name,sh.*
 from ETL.script_history sh 
