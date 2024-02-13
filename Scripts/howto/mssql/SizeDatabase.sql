@@ -5,3 +5,7 @@ SELECT file_id, type_desc,
        CAST(max_size AS decimal(19,4)) * 8 / 1024. AS max_size_mb
 FROM sys.database_files;
 
+use main;
+SELECT * FROM sys.firewall_rules
+SELECT * FROM sys.firewall_rules ORDER BY name;
+
