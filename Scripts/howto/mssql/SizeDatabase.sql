@@ -8,4 +8,5 @@ FROM sys.database_files;
 use main;
 SELECT * FROM sys.firewall_rules
 SELECT * FROM sys.firewall_rules ORDER BY name;
+select * from mgdw.DataSource.ds_endpoint
 

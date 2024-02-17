@@ -700,10 +700,10 @@
 			"name": "myDW-Kors 1",
 			"save-password": true,
 			"configuration": {
-				"host": "mgsqlserver.database.windows.net",
+				"host": "bgtest.database.windows.net",
 				"port": "1433",
-				"database": "master",
-				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmaster",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dbgtest.database.windows.net;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {

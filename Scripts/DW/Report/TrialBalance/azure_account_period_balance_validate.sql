@@ -8,7 +8,7 @@ SELECT
     [Procedure_Name],
     [Text]
   FROM Plex.Datasource_Text
-
+SELECT * FROM ssis.ScriptComplete sc  
   
 select s.Name,sh.*
 from ETL.script_history sh 
