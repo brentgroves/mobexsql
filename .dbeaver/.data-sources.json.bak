@@ -693,6 +693,26 @@
 				"type": "dev",
 				"auth-model": "native"
 			}
+		},
+		"microsoft-18da93818af-49f9957170b2b4d6": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "myDW-Kors 1",
+			"save-password": true,
+			"configuration": {
+				"host": "mgsqlserver.database.windows.net",
+				"port": "1433",
+				"database": "myDW",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmyDW",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
 		}
 	},
 	"connection-types": {

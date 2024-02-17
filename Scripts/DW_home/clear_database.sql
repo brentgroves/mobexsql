@@ -1,4 +1,9 @@
 select * from Kors.email_hours eh 
+ALTER LOGIN kors WITH PASSWORD = 'WeDontSharePasswords1!' OLD_PASSWORD = 'Spirit1$!';
+
+CREATE LOGIN test
+WITH PASSWORD = 'Spirit1$!';
+
 /* Azure friendly */
 /* Drop all Foreign Key constraints */
 DECLARE @name VARCHAR(128)

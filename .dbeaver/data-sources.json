@@ -172,8 +172,8 @@
 			"configuration": {
 				"host": "mgsqlserver.database.windows.net",
 				"port": "1433",
-				"database": "myDW",
-				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmyDW",
+				"database": "test",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dtest",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
@@ -702,8 +702,8 @@
 			"configuration": {
 				"host": "mgsqlserver.database.windows.net",
 				"port": "1433",
-				"database": "myDW",
-				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmyDW",
+				"database": "master",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dmaster",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
