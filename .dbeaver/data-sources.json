@@ -116,14 +116,17 @@
 			"save-password": true,
 			"configuration": {
 				"host": "mgsqlsrv.database.windows.net",
-				"database": "mgdw",
-				"url": "jdbc:sqlserver://;serverName\u003dmgsqlsrv.database.windows.net;databaseName\u003dmgdw;encrypt\u003dtrue",
+				"database": "mgdw2",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlsrv.database.windows.net;databaseName\u003dmgdw2;encrypt\u003dtrue",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false"
-				}
+					"@dbeaver-show-all-schemas@": "false",
+					"show-all-databases-azure": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
 			}
 		},
 		"microsoft-181874ea5ce-57dc90f9adb5ea5c": {
