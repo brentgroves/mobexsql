@@ -13,6 +13,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003d172.20.90.37;databaseName\u003dsps",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -31,6 +32,7 @@
 				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/Busche ToolList",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -51,6 +53,7 @@
 				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/cribmaster",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -70,6 +73,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dbusche-dtc-sql1;databaseName\u003dKors",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -87,6 +91,7 @@
 				"url": "jdbc:mysql://10.1.1.83:31008/",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -102,6 +107,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dmgsqlmi.public.48d444e7f69b.database.windows.net;port\u003d3342;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -112,14 +118,15 @@
 		"azure-181874ea59c-38c70fcf14b842a1": {
 			"provider": "sqlserver",
 			"driver": "azure",
-			"name": "mgsqlsrv",
+			"name": "repsys",
 			"save-password": true,
 			"configuration": {
-				"host": "mgsqlsrv.database.windows.net",
-				"database": "mgdw2",
-				"url": "jdbc:sqlserver://;serverName\u003dmgsqlsrv.database.windows.net;databaseName\u003dmgdw2;encrypt\u003dtrue",
+				"host": "repsys.database.windows.net",
+				"database": "rsdw",
+				"url": "jdbc:sqlserver://;serverName\u003drepsys.database.windows.net;databaseName\u003drsdw;encrypt\u003dtrue",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -141,6 +148,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003d172.20.89.14;databaseName\u003dsps",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -160,6 +168,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003d10.1.3.80;databaseName\u003dsps",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -179,6 +188,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dmgsqlserver.database.windows.net;databaseName\u003dtest",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -197,6 +207,7 @@
 				"url": "jdbc:ucanaccess:///mnt/toolboss-plt9a/sps.mdb",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -212,6 +223,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003d10.1.13.99;databaseName\u003dsps",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-show-all-schemas@": "false"
 				},
@@ -229,6 +241,7 @@
 				"url": "jdbc:mysql://10.1.1.83:31008/",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -243,6 +256,7 @@
 				"url": "jdbc:mysql://frt-ubu:30103/",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -257,6 +271,7 @@
 				"url": "jdbc:mysql://avi-ubu:30102/",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -272,6 +287,7 @@
 				"url": "jdbc:mysql://reports11:30010/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -292,6 +308,7 @@
 				"url": "jdbc:mysql://alb-ubu:30101/",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -307,6 +324,7 @@
 				"url": "jdbc:mysql://reports31:30031/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -328,6 +346,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dmgsqlmi.public.48d444e7f69b.database.windows.net;port\u003d3342;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -348,6 +367,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dHARTSELLE-SQL-1;databaseName\u003dMACH2",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -367,6 +387,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dHARTSELLE-SQL-1;databaseName\u003dMACH2",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -386,6 +407,7 @@
 				"url": "jdbc:mysql://reports51:30051/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -407,6 +429,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003detdsv01.busche-cnc.com;databaseName\u003dmaster",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-show-all-schemas@": "false",
 					"sslTrustServerCertificate": "true"
@@ -426,6 +449,7 @@
 				"url": "jdbc:postgresql://moto:5432/hkp",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -441,6 +465,7 @@
 				"url": "jdbc:postgresql://reports51:5432/hkp",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -456,6 +481,7 @@
 				"url": "jdbc:postgresql://localhost/zalando?user\u003dpostgres\u0026port\u003d6432\u0026sslmode\u003ddisable",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20",
 					"loginTimeout": "20",
@@ -497,6 +523,7 @@
 				"url": "jdbc:postgresql://devcon2:5432/postgres",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -510,6 +537,7 @@
 				"url": "jdbc:sqlite:/home/brent/src/feathers-chat/feathers-chat.sqlite",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -525,6 +553,7 @@
 				"url": "jdbc:mysql://reports31:30034/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -546,6 +575,7 @@
 				"url": "jdbc:mysql://localhost:3306/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -567,6 +597,7 @@
 				"url": "jdbc:postgresql://reports51/zalando?user\u003dpostgres\u0026port\u003d30451\u0026sslmode\u003drequire",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20",
 					"loginTimeout": "20",
@@ -608,6 +639,7 @@
 				"url": "jdbc:mysql://reports11:30010/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -629,6 +661,7 @@
 				"url": "jdbc:mysql://reports11:3306/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -650,6 +683,7 @@
 				"url": "jdbc:mysql://reports51:3306/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -671,6 +705,7 @@
 				"url": "jdbc:mysql://192.168.1.10:3306/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -694,6 +729,7 @@
 				"configurationType": "MANUAL",
 				"home": "/usr",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -709,6 +745,7 @@
 				"url": "jdbc:sqlserver://;serverName\u003dbgtest.database.windows.net;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -729,7 +766,9 @@
 			"smart-commit": false,
 			"smart-commit-recover": false,
 			"auto-close-transactions": true,
-			"close-transactions-period": 1800
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 3600
 		}
 	}
 }
