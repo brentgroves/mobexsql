@@ -3,7 +3,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -26,7 +26,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -45,7 +45,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -68,7 +68,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -93,7 +93,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -121,7 +121,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -180,7 +180,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -199,6 +199,7 @@ SELECT distinct pcn,period
 FROM Plex.accounting_balance 
 where pcn = 123681 
 -- and period = 202308  -- 232
+and period between 202303 and 202401  -- 2607
 and period between 202302 and 202312  -- 2625
 and period between 202301 and 202311  -- 2642
 and period between 202301 and 202310  -- 2410
@@ -246,7 +247,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -272,6 +273,7 @@ where pcn=123681
 -- and period = 202401  -- 4622
 -- and period = 202312  -- 4617
 -- and period = 202311  -- 4617
+and period between 202402 and 202403 -- 9,244
 and period between 202401 and 202402 -- 9,244
 and period between 202312 and 202401 -- 9,244
 and period between 202311 and 202401 -- 13,866
@@ -299,7 +301,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -379,7 +381,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 
@@ -437,7 +439,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-02-12 00:00:00' and '2024-02-13 00:00:00' 
+and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00' 
 order by script_history_key desc
 
 The CsvToTrialBalance python script is meant to replace the SSIS script
