@@ -753,6 +753,27 @@
 				},
 				"auth-model": "sqlserver_database"
 			}
+		},
+		"mssql_jtds_legacy-18dd82d0fa6-48e2bf32745cafe3": {
+			"provider": "mssql",
+			"driver": "mssql_jtds_legacy",
+			"name": "rsdw",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1433",
+				"database": "TestDB",
+				"url": "jdbc:jtds:sqlserver://localhost/TestDB",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
