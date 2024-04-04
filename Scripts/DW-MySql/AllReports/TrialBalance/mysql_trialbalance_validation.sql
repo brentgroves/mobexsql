@@ -7,7 +7,7 @@ and start_time between '2024-03-08 00:00:00' and '2024-03-09 00:00:00'
 order by script_history_key desc
 
 
-select * from ETL.Script s 
+select * from ETL.script s 
 -- delete from ETL.script_history where script_history_key = 4746
 
 select * 
