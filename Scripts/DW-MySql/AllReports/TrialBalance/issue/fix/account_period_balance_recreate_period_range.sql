@@ -58,7 +58,8 @@ limit 10
 ALWAYS DELETE PERIOD RANGE BEFORE RECREATING PERIOD RANGE 
 -- call `Plex`.`account_period_balance_delete_period_range`(123681); -- 50,842
 -- call `Plex`.`account_period_balance_recreate_period_range`(123681);
-
+select * from Plex.accounting_period_ranges where pcn = 123681
+-- drop PROCEDURE `Plex`.`account_period_balance_recreate_period_range`
 CREATE DEFINER=`root`@`%` PROCEDURE `Plex`.`account_period_balance_recreate_period_range`(
 	in v_pcn int
 )
@@ -113,7 +114,8 @@ proc_Exit:begin
 	else 
 		set v_first_period=0;
 	end if;
-  	SET @enabled = TRUE;
+  	SET @enabled = FALSE;
+--   	SET @enabled = TRUE;
   	set @str = concat_ws('','v_start_period:', v_start_period);
 	set @str = concat_ws('',@str,'#','v_prev_period:', v_prev_period);
   	set @str = concat_ws('',@str,'#','v_period:', v_period);

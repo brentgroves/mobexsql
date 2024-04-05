@@ -47,6 +47,7 @@ order by period desc
 -- call `Archive`.`account_period_balance_recreate_open_period_range_2024_01_18`(123681);
 -- CREATE DEFINER=`root`@`%` PROCEDURE `Archive`.`account_period_balance_recreate_open_period_range_2024_01_18`(
 -- call `Plex`.`account_period_balance_recreate_open_period_range`(123681);
+-- drop procedure `Plex`.`account_period_balance_recreate_open_period_range`
 CREATE DEFINER=`root`@`%` PROCEDURE `Plex`.`account_period_balance_recreate_open_period_range`(
 	in v_pcn int
 )
@@ -105,7 +106,6 @@ proc_Exit:begin
 	call debug_msg(@enabled, @str);
 -- pcn		anchor_period	anchor_period_display	period	prev_period	start_open_period	first_period	end_open_period	max_fiscal_period
 -- 123681	202311			11-2023					202312	202311		202312				0				202401			202312
-
 -- 	Bug fix: added the account_no column to the following insert.
 -- 	INSERT INTO Plex.accounting_account_year_category_type ( pcn,`year`,category_type,revenue_or_expense)
 	INSERT INTO Plex.accounting_account_year_category_type ( pcn,account_no,`year`,category_type,revenue_or_expense)
