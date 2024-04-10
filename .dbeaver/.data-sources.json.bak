@@ -774,6 +774,28 @@
 				},
 				"auth-model": "native"
 			}
+		},
+		"mysql8-18ea0d5263d-6ff0365a81a08f26": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports31-ingress",
+			"save-password": true,
+			"configuration": {
+				"host": "reports31",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports31:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
@@ -789,7 +811,7 @@
 			"auto-close-transactions": true,
 			"close-transactions-period": 1800,
 			"auto-close-connections": true,
-			"close-connections-period": 3600
+			"close-connections-period": 14400
 		}
 	}
 }
