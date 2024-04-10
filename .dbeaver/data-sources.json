@@ -6,13 +6,14 @@
 			"driver": "microsoft",
 			"name": "AvillaToolboss",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "172.20.90.37",
 				"port": "1433",
 				"database": "sps",
 				"url": "jdbc:sqlserver://;serverName=172.20.90.37;databaseName=sps",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -24,13 +25,14 @@
 			"driver": "mssql_jtds_legacy",
 			"name": "Busche ToolList",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "busche-sql.busche-cnc.com",
 				"port": "1433",
 				"database": "Busche ToolList",
 				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/Busche ToolList",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -44,13 +46,14 @@
 			"driver": "mssql_jtds_legacy",
 			"name": "cribmaster",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "busche-sql.busche-cnc.com",
 				"port": "1433",
 				"database": "cribmaster",
 				"url": "jdbc:jtds:sqlserver://busche-sql.busche-cnc.com/cribmaster",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -63,13 +66,14 @@
 			"driver": "microsoft",
 			"name": "Kors",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "busche-dtc-sql1",
 				"port": "1433",
 				"database": "Kors",
 				"url": "jdbc:sqlserver://;serverName=busche-dtc-sql1;databaseName=Kors",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -81,12 +85,13 @@
 			"driver": "mysql8",
 			"name": "Kubenetes",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.1.83",
 				"port": "31008",
 				"url": "jdbc:mysql://10.1.1.83:31008/",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -95,13 +100,14 @@
 			"driver": "microsoft",
 			"name": "mgdw-mgsqlmi",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
 				"port": "3342",
 				"database": "mgdw",
 				"url": "jdbc:sqlserver://;serverName=mgsqlmi.public.48d444e7f69b.database.windows.net;port=3342;databaseName=mgdw",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -114,12 +120,13 @@
 			"driver": "azure",
 			"name": "repsys",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "repsys.database.windows.net",
 				"database": "rsdw",
 				"url": "jdbc:sqlserver://;serverName=repsys.database.windows.net;databaseName=rsdw;encrypt=true",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -134,13 +141,14 @@
 			"driver": "microsoft",
 			"name": "MSC1-AVILLAMTNC",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "172.20.89.14",
 				"port": "1433",
 				"database": "sps",
 				"url": "jdbc:sqlserver://;serverName=172.20.89.14;databaseName=sps",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -153,13 +161,14 @@
 			"driver": "microsoft",
 			"name": "MSC1-BUSCHE-P6",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.3.80",
 				"port": "1433",
 				"database": "sps",
 				"url": "jdbc:sqlserver://;serverName=10.1.3.80;databaseName=sps",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -172,13 +181,14 @@
 			"driver": "microsoft",
 			"name": "myDW-Kors",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlserver.database.windows.net",
 				"port": "1433",
 				"database": "test",
 				"url": "jdbc:sqlserver://;serverName=mgsqlserver.database.windows.net;databaseName=test",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -192,11 +202,12 @@
 			"driver": "msaccess_ucanaccess",
 			"name": "ToolBossPlt9aProduction",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"database": "/mnt/toolboss-plt9a/sps.mdb",
 				"url": "jdbc:ucanaccess:///mnt/toolboss-plt9a/sps.mdb",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -205,13 +216,14 @@
 			"driver": "microsoft",
 			"name": "MSC-edon-ppe",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.13.99",
 				"port": "1433",
 				"database": "sps",
 				"url": "jdbc:sqlserver://;serverName=10.1.13.99;databaseName=sps",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-show-all-schemas@": "false"
 				},
@@ -223,12 +235,13 @@
 			"driver": "mysql8",
 			"name": "moto",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "10.1.1.83",
 				"port": "31008",
 				"url": "jdbc:mysql://10.1.1.83:31008/",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -237,12 +250,13 @@
 			"driver": "mysql8",
 			"name": "frt-ubu",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "frt-ubu",
 				"port": "30103",
 				"url": "jdbc:mysql://frt-ubu:30103/",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -251,12 +265,13 @@
 			"driver": "mysql8",
 			"name": "avi-ubu",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "avi-ubu",
 				"port": "30102",
 				"url": "jdbc:mysql://avi-ubu:30102/",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -265,13 +280,14 @@
 			"driver": "mysql8",
 			"name": "reports11",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports11",
 				"port": "30010",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports11:30010/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -286,12 +302,13 @@
 			"driver": "mysql8",
 			"name": "alb-ubu",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "alb-ubu",
 				"port": "30101",
 				"url": "jdbc:mysql://alb-ubu:30101/",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -300,13 +317,14 @@
 			"driver": "mysql8",
 			"name": "reports31",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports31",
 				"port": "30031",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports31:30031/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -321,13 +339,14 @@
 			"driver": "microsoft",
 			"name": "mgdw-mgsqlmi-alex",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
 				"port": "3342",
 				"database": "mgdw",
 				"url": "jdbc:sqlserver://;serverName=mgsqlmi.public.48d444e7f69b.database.windows.net;port=3342;databaseName=mgdw",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -341,13 +360,14 @@
 			"driver": "microsoft",
 			"name": "HARTSELLE-SQL-1",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "HARTSELLE-SQL-1",
 				"port": "1433",
 				"database": "MACH2",
 				"url": "jdbc:sqlserver://;serverName=HARTSELLE-SQL-1;databaseName=MACH2",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -360,13 +380,14 @@
 			"driver": "microsoft",
 			"name": "HARTSELLE-SQL-1-sjackson",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "HARTSELLE-SQL-1",
 				"port": "1433",
 				"database": "MACH2",
 				"url": "jdbc:sqlserver://;serverName=HARTSELLE-SQL-1;databaseName=MACH2",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false"
@@ -379,13 +400,14 @@
 			"driver": "mysql8",
 			"name": "reports51-innodb-cluster",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports51",
 				"port": "30051",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports51:30051/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -400,13 +422,14 @@
 			"driver": "microsoft",
 			"name": "gagetraker",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "etdsv01.busche-cnc.com",
 				"port": "1433",
 				"database": "master",
 				"url": "jdbc:sqlserver://;serverName=etdsv01.busche-cnc.com;databaseName=master",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-show-all-schemas@": "false",
 					"sslTrustServerCertificate": "true"
@@ -419,13 +442,14 @@
 			"driver": "postgres-jdbc",
 			"name": "postgres",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "moto",
 				"port": "5432",
 				"database": "hkp",
 				"url": "jdbc:postgresql://moto:5432/hkp",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -434,13 +458,14 @@
 			"driver": "postgres-jdbc",
 			"name": "postgres-reports51",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports51",
 				"port": "5432",
 				"database": "hkp",
 				"url": "jdbc:postgresql://reports51:5432/hkp",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -449,13 +474,14 @@
 			"driver": "postgres-jdbc",
 			"name": "postgres-proxy",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "6432",
 				"database": "postgres",
 				"url": "jdbc:postgresql://localhost/zalando?user=postgres&port=6432&sslmode=disable",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20",
 					"loginTimeout": "20",
@@ -490,13 +516,14 @@
 			"driver": "postgres-jdbc",
 			"name": "postgres-devcon2",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "devcon2",
 				"port": "5432",
 				"database": "postgres",
 				"url": "jdbc:postgresql://devcon2:5432/postgres",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -505,11 +532,12 @@
 			"driver": "sqlite_jdbc",
 			"name": "feathers-chat.sqlite",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"database": "/home/brent/src/feathers-chat/feathers-chat.sqlite",
 				"url": "jdbc:sqlite:/home/brent/src/feathers-chat/feathers-chat.sqlite",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -518,13 +546,14 @@
 			"driver": "mysql8",
 			"name": "reports31-2nd-instance",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports31",
-				"port": "30034",
+				"port": "30032",
 				"database": "mysql",
-				"url": "jdbc:mysql://reports31:30034/mysql",
+				"url": "jdbc:mysql://reports31:30032/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -539,13 +568,14 @@
 			"driver": "mysql8",
 			"name": "InnoDB-proxy-running",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -560,13 +590,14 @@
 			"driver": "postgres-jdbc",
 			"name": "postgres-nodeport-reports51",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "6432",
 				"database": "postgres",
 				"url": "jdbc:postgresql://reports51/zalando?user=postgres&port=30451&sslmode=require",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20",
 					"loginTimeout": "20",
@@ -601,13 +632,14 @@
 			"driver": "mysql8",
 			"name": "reports11-ingress",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports11",
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports11:3306/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -622,13 +654,14 @@
 			"driver": "mysql8",
 			"name": "reports51-ingress",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports51",
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports51:3306/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -643,13 +676,14 @@
 			"driver": "mysql8",
 			"name": "home",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "192.168.1.10",
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://192.168.1.10:3306/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -665,14 +699,15 @@
 			"driver": "mysql8",
 			"name": "recordings",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "3306",
 				"database": "recordings",
 				"url": "jdbc:mysql://localhost:3306/recordings",
+				"configurationType": "MANUAL",
 				"home": "/usr",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"auth-model": "native"
 			}
 		},
@@ -681,13 +716,14 @@
 			"driver": "microsoft",
 			"name": "myDW-Kors 1",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "bgtest.database.windows.net",
 				"port": "1433",
 				"database": "mgdw",
 				"url": "jdbc:sqlserver://;serverName=bgtest.database.windows.net;databaseName=mgdw",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -701,13 +737,14 @@
 			"driver": "mssql_jtds_legacy",
 			"name": "rsdw",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "localhost",
 				"port": "1433",
 				"database": "TestDB",
 				"url": "jdbc:jtds:sqlserver://localhost/TestDB",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
 					"@dbeaver-show-all-schemas@": "false",
@@ -721,13 +758,14 @@
 			"driver": "mysql8",
 			"name": "reports31-ingress",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "reports31",
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://reports31:3306/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
@@ -742,21 +780,21 @@
 			"driver": "mysql8",
 			"name": "rephub11_home",
 			"save-password": true,
-			"read-only": false,
 			"configuration": {
 				"host": "rephub11",
 				"port": "30031",
 				"database": "mysql",
 				"url": "jdbc:mysql://rephub11:30031/mysql",
+				"configurationType": "MANUAL",
 				"type": "dev",
+				"closeIdleConnection": false,
 				"properties": {
 					"connectTimeout": "20000",
 					"rewriteBatchedStatements": "true",
 					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
 					"allowPublicKeyRetrieval": "TRUE"
 				},
-				"auth-model": "native",
-				"handlers": {}
+				"auth-model": "native"
 			}
 		}
 	},
@@ -768,7 +806,12 @@
 			"auto-commit": true,
 			"confirm-execute": false,
 			"confirm-data-change": false,
-			"auto-close-transactions": false
+			"smart-commit": false,
+			"smart-commit-recover": false,
+			"auto-close-transactions": true,
+			"close-transactions-period": 1800,
+			"auto-close-connections": true,
+			"close-connections-period": 14400
 		}
 	}
 }
