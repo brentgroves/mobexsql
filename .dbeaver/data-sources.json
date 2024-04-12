@@ -478,7 +478,7 @@
 				"host": "localhost",
 				"port": "6432",
 				"database": "postgres",
-				"url": "jdbc:postgresql://localhost/zalando?user=postgres&port=6432&sslmode=disable",
+				"url": "jdbc:postgresql://localhost:6432/postgres",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -496,7 +496,8 @@
 					"read-keys-with-columns": "false",
 					"@dbeaver-use-prepared-statements-db@": "false",
 					"postgresql.dd.plain.string": "false",
-					"postgresql.dd.tag.string": "false"
+					"postgresql.dd.tag.string": "false",
+					"@dbeaver-chosen-role@": ""
 				},
 				"auth-model": "native",
 				"handlers": {
@@ -795,6 +796,49 @@
 					"allowPublicKeyRetrieval": "TRUE"
 				},
 				"auth-model": "native"
+			}
+		},
+		"postgres-jdbc-18ed43e29e7-20e4d2468547cccd": {
+			"provider": "postgresql",
+			"driver": "postgres-jdbc",
+			"name": "postgres-nodeport-reports3",
+			"save-password": true,
+			"configuration": {
+				"host": "reports31",
+				"port": "30351",
+				"database": "postgres",
+				"url": "jdbc:postgresql://reports31:30351/postgres",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"connectTimeout": "20",
+					"loginTimeout": "20",
+					"escapeSyntaxCallMode": "callIfNoReturn"
+				},
+				"provider-properties": {
+					"@dbeaver-show-non-default-db@": "false",
+					"@dbeaver-show-template-db@": "false",
+					"@dbeaver-show-unavailable-db@": "false",
+					"show-database-statistics": "false",
+					"@dbeaver-read-all-data-types-db@": "false",
+					"read-keys-with-columns": "false",
+					"@dbeaver-use-prepared-statements-db@": "false",
+					"postgresql.dd.plain.string": "false",
+					"postgresql.dd.tag.string": "false",
+					"@dbeaver-chosen-role@": ""
+				},
+				"auth-model": "native",
+				"handlers": {
+					"socks_proxy": {
+						"type": "PROXY",
+						"enabled": true,
+						"save-password": true,
+						"properties": {
+							"socks-port": 1080.0
+						}
+					}
+				}
 			}
 		}
 	},
