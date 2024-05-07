@@ -304,6 +304,7 @@ select *
 --select count(*)
 from Plex.trial_balance_multi_level
 --order by pcn,period_display  
+where pcn=123681 and period=202404  -- 4204.
 where pcn=123681 and period=202403  -- 4204.
 where pcn=123681 and period=202402  -- 4204.
 where pcn=123681 and period=202401  -- 4204.
