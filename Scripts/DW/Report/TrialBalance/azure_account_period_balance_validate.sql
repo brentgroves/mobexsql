@@ -299,7 +299,7 @@ and account_no = '11010-000-0000'  -- new account
 from Plex.account_activity_summary  
 where pcn=123681
 -- order by pcn,period
--- and period = 202405  -- 0
+ and period = 202405  -- 4638
  and period = 202404  -- 4638
  and period = 202403  -- 4638
 -- and period = 202401  -- 4622
@@ -419,6 +419,7 @@ where pcn = 123681
 --and period = 202401  -- 4,621
 --and period = 202312  -- 4,621
 --and period = 202311  -- 4,621
+and period between 202304 and 202405  -- 64,932 (05/07/24)/64,294 
 and period between 202303 and 202404  -- 64,932 (04/05/24)
 and period between 202303 and 202401  -- 50,842(03/08/24)
 --and period between 202302 and 202312  -- 50,842(02/08/24)
@@ -597,7 +598,8 @@ set @pcn= 123681;
 declare @period_start int;
 set @period_start = 202303;
 declare @period_end int;
-set @period_end = 202403; --TB-202303_to_202403_on_04-05_DM -- 2 account balances changed in 202401 so needed to pull 202401-202403
+set @period_end = 202403; --TB-202304_to_202404_on_05-07_DM -- 
+--set @period_end = 202403; --TB-202303_to_202403_on_04-05_DM -- 2 account balances changed in 202401 so needed to pull 202401-202403
 --set @period_end = 202402; -- TB-202302_to_202402_on_03-08_DM 
 --set @period_end = 202401; -- TB-202302_to_202402_on_03-08_DM -- no change in 202401
 --set @period_end = 202401; -- TB-202301_to_202401_on_02-08_DM -- was one change in 202312

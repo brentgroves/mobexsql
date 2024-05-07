@@ -274,7 +274,7 @@ select distinct pcn,period
 from Plex.account_activity_summary  
 where pcn=123681
 -- order by pcn,period
- and period = 202405  -- 0
+ and period = 202405  -- 4638
  and period = 202404  -- 4638
  and period = 202403  -- 4638
 and period between 202403 and 202404 -- 9,276
