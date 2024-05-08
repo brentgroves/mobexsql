@@ -364,6 +364,7 @@ where pcn = 123681
 -- and period = 202401  -- 4,621
 -- and period = 202312  -- 4,621
 -- and period = 202311  -- 4,621
+and period between 202304 and 202404  -- 60,294 (05/08/24)
 and period between 202303 and 202404  -- 64,932 (04/05/24)
 and period between 202302 and 202312  -- 50,842(02/08/24)
 -- and period between 202301 and 202401  -- 60,074(01/09/24)#60,074(01/04/24)
