@@ -15,7 +15,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 --and start_time between '2024-01-09 00:00:00' and '2024-01-10 00:00:00' 
 order by script_history_key desc
 
@@ -31,13 +31,13 @@ is a revenue/expense to determine whether to reset YTD values to 0 for every yea
 
 -- 2024_04_05 count is 4638
 select count(*) from Plex.accounting_account_year_category_type aayct  
-where pcn = 123681 -- 27,748 mssql (05/08/24) and 27,743 in mysql
+where pcn = 123681 -- 27,750,27,748 mssql (05/08/24) and 27,743 in mysql
 --and year = 2020 -- 4,595
 --and year = 2021 -- 4,617
 -- and year = 2022 -- DIFF HERE between mysql and mssql (4,622 mssql and 4617 in mysql)
 --and year = 2025 -- 4,638
 and year = 2023 -- 4,638
-and year = 2024 -- 4638
+and year = 2024 -- 4638/4639 1 account was added when i ran on jun 7
 and year = 2026 -- 0
 
 
@@ -51,7 +51,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 
@@ -66,7 +66,7 @@ when a new period gets appended if the category type changes or an account someh
  * Plex says 4683 in its accounting_year_category_type sproc
  */
 select count(*) from Plex.accounting_account  -- 19,287/19,286,19,176
-where pcn=123681 -- 4,638/4,622/4,621/4,617
+where pcn=123681 -- 4,639 1 account added/4,638/4,622/4,621/4,617
 select distinct(pcn) from Plex.accounting_account  
 select *
 -- select top 10 * 
@@ -79,7 +79,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 
@@ -100,7 +100,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 
@@ -116,6 +116,11 @@ order by script_history_key desc
 --TB-202205_to_202305_on_06-09_DM
 select * from Plex.accounting_period_ranges -- 202105/202204
 where pcn = 123681
+|start_period|end_period|start_open_period|end_open_period|no_update|
+|------------|----------|-----------------|---------------|---------|
+|202,306     |202,404   |202,405          |202,406        |0        |
+
+
 -- update Plex.accounting_period_ranges 
 -- set start_period = 202211,no_update = 0
 -- set no_update=0
@@ -126,7 +131,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -160,7 +165,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -207,7 +212,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -217,13 +222,19 @@ It then runs Plex.accounting_balance_delete_period_range to delete the outdated 
 */
 select * from Plex.accounting_period_ranges apr where pcn=123681
 SELECT distinct pcn,period 
+|start_period|end_period|start_open_period|end_open_period|no_update|
+|------------|----------|-----------------|---------------|---------|
+|202,306     |202,404   |202,405          |202,406        |0        |
 
 
 -- select count(*)
 -- select top 10 *
 FROM Plex.accounting_balance 
 where pcn = 123681 
+ and period = 202404  -- 230
+
 -- and period = 202308  -- 232
+--and period between 202306 and 202404  -- 2330
 and period between 202305 and 202403  -- 2578
 and period between 202305 and 202402  -- 2354
 and period between 202304 and 202402  -- 2597
@@ -271,7 +282,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -296,11 +307,68 @@ from Plex.account_activity_summary
 where pcn=123681 and period = 202403 
 and account_no = '11010-000-0000'  -- new account
 
+-- Find new account
+with account_summary_05
+as
+(
+	select account_no 
+	from Plex.account_activity_summary  
+	where pcn=123681
+	 and period = 202405  -- 4639
+
+)
+--select count(*) cnt from account_summary_05
+,account_summary_04
+as
+(
+	select account_no 
+--	select count(account_no) cnt
+	from Plex.account_activity_summary  
+	where pcn=123681
+	 and period = 202404  -- 4638
+)
+--select count(*) cnt from account_summary_05 // 4,639
+--select count(*) cnt from account_summary_04 // 4,638
+--select count(*) cnt 
+,as5_as4
+as
+(
+	select as5.account_no an5,as4.account_no an4
+	from account_summary_05 as5
+--	join account_summary_04 as4 -- 4638
+	left outer join account_summary_04 as4
+	on as5.account_no = as4.account_no
+)
+--select count(*) cnt from as5_as4
+select * 
+from as5_as4
+where an4 is null 
+
+--Found new account on 6/7/2024
+select *
+from Plex.account_activity_summary  
+where pcn=123681
+and account_no = '11030-000-0000'
+
+|pcn    |period |account_no    |beginning_balance|debit    |credit|balance  |ending_balance|
+|-------|-------|--------------|-----------------|---------|------|---------|--------------|
+|123,681|202,405|11030-000-0000|0                |16,666.36|0     |16,666.36|16,666.36     |
+|123,681|202,406|11030-000-0000|16,666.36        |4,316.25 |0     |4,316.25 |20,982.61     |
+
+select count(*) cnt  
+from Plex.account_activity_summary  
+where pcn=123681
+-- order by pcn,period
+-- and period = 202406  -- 4639
+ and period = 202405  -- 4639
+ and period = 202404  -- 4638
+
 -- select count(*)
 from Plex.account_activity_summary  
 where pcn=123681
 -- order by pcn,period
--- and period = 202405  -- 4638
+ and period = 202406  -- 4639
+ and period = 202405  -- 4639
  and period = 202404  -- 4638
  and period = 202403  -- 4638
 -- and period = 202401  -- 4622
@@ -347,7 +415,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -402,15 +470,30 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
+and account_no = '11030-000-0000'
+
 select distinct pcn,period 
+-- select top 10 *
 -- select *
 -- select count(*)
 from Plex.account_period_balance 
 --order by pcn,period desc
 where pcn = 123681 
+--and period = 202405  -- 4,639
+--and period = 202404  -- 4,621
+
+and account_no = '11030-000-0000' -- new account found on 6/7/2024
+order by period
+
+|pcn    |account_no    |period |period_display|debit    |ytd_debit|credit|ytd_credit|balance  |ytd_balance|
+|-------|--------------|-------|--------------|---------|---------|------|----------|---------|-----------|
+|123,681|11030-000-0000|202,404|04-2024       |0        |0        |0     |0         |0        |0          |
+|123,681|11030-000-0000|202,405|05-2024       |16,666.36|16,666.36|0     |0         |16,666.36|16,666.36  |
+|123,681|11030-000-0000|202,406|06-2024       |4,316.25 |20,982.61|0     |0         |4,316.25 |20,982.61  |
+
 --where account_no = '10110-000-00000'
 --and account_no = '11055-000-9806'  -- new account
 
@@ -452,7 +535,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 
@@ -514,7 +597,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-05-08 00:00:00' and '2024-05-09 00:00:00' 
+and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
 order by script_history_key desc
 
 
@@ -590,17 +673,36 @@ select * from ETL.script
 select count(*) cnt 
 from Plex.trial_balance_multi_level d
 where pcn = 123681 and period = 202308  -- should be 0 for the last period because we have not ran the ETL script yet 
+
 select * from Plex.accounting_period_ranges -- 202303/202304
 where pcn = 123681
 
+-- is new account in trial_balance_multi_level
+select *
+from Plex.trial_balance_multi_level d
+where pcn = 123681  
+and account_no = '11030-000-0000' -- not found in tbml on 6/7/2024
+order by period
 
+--New account was created in account_period_balance on 6/7/2024
+select * from Plex.account_period_balance apb 
+where account_no = '11030-000-0000' -- not found in tbml on 6/7/2024
+
+|pcn    |account_no    |period |period_display|debit    |ytd_debit|credit|ytd_credit|balance  |ytd_balance|
+|-------|--------------|-------|--------------|---------|---------|------|----------|---------|-----------|
+|123,681|11030-000-0000|202,404|04-2024       |0        |0        |0     |0         |0        |0          |
+|123,681|11030-000-0000|202,405|05-2024       |16,666.36|16,666.36|0     |0         |16,666.36|16,666.36  |
+|123,681|11030-000-0000|202,406|06-2024       |4,316.25 |20,982.61|0     |0         |4,316.25 |20,982.61  |
 
 declare @pcn int;
 set @pcn= 123681;
 declare @period_start int;
-set @period_start = 202304;
+set @period_start = 202305;
 declare @period_end int;
-set @period_end = 202404; --TB-202304_to_202404_on_05-07_DM -- no changes in 202403 
+set @period_end = 202405; -- TB-202305_to_202405_on_06-07_DM -- passed but new account is not   
+--set @period_end = 202404; -- TB-202305_to_202405_on_06-07_DM -- no changes in 202304 to 202404  
+
+--set @period_end = 202404; --TB-202304_to_202404_on_05-07_DM -- no changes in 202403 
 --set @period_end = 202403; --TB-202303_to_202403_on_04-05_DM -- 2 account balances changed in 202401 so needed to pull 202401-202403
 --set @period_end = 202402; -- TB-202302_to_202402_on_03-08_DM 
 --set @period_end = 202401; -- TB-202302_to_202402_on_03-08_DM -- no change in 202401
@@ -675,12 +777,12 @@ on b.pcn=d.pcn
 and ap.period_display = d.period_display 
 and b.account_no = d.account_no  -- 16,816
 where b.pcn = @pcn
-and b.period between @period_start and @period_end -- 54,652/202304-202404# -- 54,652/202304-202403#50,448/202303-202402#202302-202402#46,244/202303-202401#54,652/202301-202401#50,448/202301-202312#58,856/202212-202401#54,652/202212-202312#50,448/202212-202311#58,856/202212-202401#54,652/202212-202312#50,448/202212-202311 (01/03/24)#54,652/202211-202310 (12/12)/54,652/202211-202310 (12/8)/50,448/202211-202310 (21st),46,244/202211-202309,50,448/202211-202310,54,652/202210-202310,54,652/202209-202309,54,652,50,448/202208-202308, 54,652/202207-202307, 54,652/202206-202306,54,652/202205-202305,117,712/202101-202304,109,304/202101-202302, 105,100/202101-202301,100,896/202101-202212,96,692/202101-202211,92,488/202101-202210/88,284/202101-202209/8,408/202208-202209,4,562/2021-01 to 2022-07,3,953/2021-01 to 2022-04
--- and b.balance  = d.current_debit_credit -- 54,626/202304-202404#54,624/202304-202403#50,419/202302-202402#54,620/202302-202402#46,219/202303-202401#54,618/202301-202401#50,416/202301-202312#58,817/202212-202401#54,616/202212-202312#50,413/202212-202311#54,616/202212-202312#58,821/202212-202401#54,613/202212-202312#54,614/202211-202310 (12/12)/54,614/202211-202310 (12/8)/50,411/202211-202310,54,614/202210-202310,54,611/202209-202309,54,614/202207-202307,54,617/202206-202306,54,618/202205-202305,117,117,645/202101-202304,109,242/202101-202302,/105,043/202101-202301,100,843/202101-202212,96,643/202101-202211,92,442/202101-202210,
---and b.balance  != d.current_debit_credit -- 26/202304-202404#28/202304-202403#20/202302-202402#32/202302-202402#25/202303-202401#34/202301-202401#32/202301-202312#39/202212-202401#36/202212-202312#35/202212-202311#36/202212-202312#35/202212-202401#39/202212-202312#38/202211-202310 (12/12)#38/202211-202310 (12/8)/37/202211-202310,38/202210-202310,41/202209-202309,38/202207-202307,35/202206-202306,34/202205-202305,62/202101-202302,57/202101-202301,53/202101-202212,49/202101-202211,46//202101-202210
+and b.period between @period_start and @period_end -- 54,652/202305-202405#54,652/202304-202404# -- 54,652/202304-202403#50,448/202303-202402#202302-202402#46,244/202303-202401#54,652/202301-202401#50,448/202301-202312#58,856/202212-202401#54,652/202212-202312#50,448/202212-202311#58,856/202212-202401#54,652/202212-202312#50,448/202212-202311 (01/03/24)#54,652/202211-202310 (12/12)/54,652/202211-202310 (12/8)/50,448/202211-202310 (21st),46,244/202211-202309,50,448/202211-202310,54,652/202210-202310,54,652/202209-202309,54,652,50,448/202208-202308, 54,652/202207-202307, 54,652/202206-202306,54,652/202205-202305,117,712/202101-202304,109,304/202101-202302, 105,100/202101-202301,100,896/202101-202212,96,692/202101-202211,92,488/202101-202210/88,284/202101-202209/8,408/202208-202209,4,562/2021-01 to 2022-07,3,953/2021-01 to 2022-04
+-- and b.balance  = d.current_debit_credit -- 54,626/202305-202405# 54,626/202304-202404#54,624/202304-202403#50,419/202302-202402#54,620/202302-202402#46,219/202303-202401#54,618/202301-202401#50,416/202301-202312#58,817/202212-202401#54,616/202212-202312#50,413/202212-202311#54,616/202212-202312#58,821/202212-202401#54,613/202212-202312#54,614/202211-202310 (12/12)/54,614/202211-202310 (12/8)/50,411/202211-202310,54,614/202210-202310,54,611/202209-202309,54,614/202207-202307,54,617/202206-202306,54,618/202205-202305,117,117,645/202101-202304,109,242/202101-202302,/105,043/202101-202301,100,843/202101-202212,96,643/202101-202211,92,442/202101-202210,
+--and b.balance  != d.current_debit_credit -- 26/202305-202405#26/202304-202404#28/202304-202403#20/202302-202402#32/202302-202402#25/202303-202401#34/202301-202401#32/202301-202312#39/202212-202401#36/202212-202312#35/202212-202311#36/202212-202312#35/202212-202401#39/202212-202312#38/202211-202310 (12/12)#38/202211-202310 (12/8)/37/202211-202310,38/202210-202310,41/202209-202309,38/202207-202307,35/202206-202306,34/202205-202305,62/202101-202302,57/202101-202301,53/202101-202212,49/202101-202211,46//202101-202210
 --and abs(b.balance - d.current_debit_credit) >  0.01  -- 0 
---and (b.ytd_balance = d.ytd_debit_credit)  -- 54,484/202304-202404#54,485/202303-202403#/202302-202402#46,104/202303-202401#54,485/202301-202401#50,298/202301-202312#54,490/202212-202312#50,300/202212-202311#54,490/202212-202312#58,678/202212-202401#54,489/202211-202311 (12/12)#54,490/202211-202310 (12/8)/50,299/202211-202310 (20th),50,299/202211-202310 (13th),54,492/202210-202310 (7th),54,490/202209-202309 (17th),54,489/202209-202309(10th),54,491/202207-202307,54491/202206-202306,54,490/202205-202305,117,349/202101-202304,108,967/202101-202302,104,777/202101-202301,100,586/202101-202212,96,394/202101-202211,92,204/202101-202210
---and (b.ytd_balance != d.ytd_debit_credit)  --  168/202304-202404#167/202304-202403#202302-202402#168/202302-202402#167/202301-202401#150/202301-202312#162/202212-202312#148/202212-202311#162/202212-202312#178/202212-202401#163/202211-202311 (12/12) #162/202211-202310 (12/8)/149/202211-202310(13th),160/202210-202310(7th),162/202209-202309(17th),163/202209-202309(10th),161/202207-202307,161/202206-202306,162/202205-202305,363/202101-202304,337/202101-202302,323/202101-202301,310/202101-202212,298/202101-202211,284/202101-202210
+--and (b.ytd_balance = d.ytd_debit_credit)  -- 54,484/202305-202405#54,484/202304-202404#54,485/202303-202403#/202302-202402#46,104/202303-202401#54,485/202301-202401#50,298/202301-202312#54,490/202212-202312#50,300/202212-202311#54,490/202212-202312#58,678/202212-202401#54,489/202211-202311 (12/12)#54,490/202211-202310 (12/8)/50,299/202211-202310 (20th),50,299/202211-202310 (13th),54,492/202210-202310 (7th),54,490/202209-202309 (17th),54,489/202209-202309(10th),54,491/202207-202307,54491/202206-202306,54,490/202205-202305,117,349/202101-202304,108,967/202101-202302,104,777/202101-202301,100,586/202101-202212,96,394/202101-202211,92,204/202101-202210
+--and (b.ytd_balance != d.ytd_debit_credit)  --  168/202305-202405#168/202304-202404#167/202304-202403#202302-202402#168/202302-202402#167/202301-202401#150/202301-202312#162/202212-202312#148/202212-202311#162/202212-202312#178/202212-202401#163/202211-202311 (12/12) #162/202211-202310 (12/8)/149/202211-202310(13th),160/202210-202310(7th),162/202209-202309(17th),163/202209-202309(10th),161/202207-202307,161/202206-202306,162/202205-202305,363/202101-202304,337/202101-202302,323/202101-202301,310/202101-202212,298/202101-202211,284/202101-202210
 and abs(b.ytd_balance - d.ytd_debit_credit) > .01 -- 13/202304-202404# 13/202302-202402#13/202301-202401#12/202301-202312#17/202212-202401#13/202212-202312#13/202211-202310 (12/8)/12/202211-202310 (20th),13/202210-202310,13/202209-202309,13/202207-202307,13/202206-202306,13/202205-202305,16/202101-202304,15/202101-202303,14/202101-202302,17/202101-202302,13/202101-202301,12/202101-202212,11/202101-202211,-- 10/202101-202210 (73100-000-0000)
 and d.account_no != '73100-000-0000' -- 0/202304-202404#4/202304-202402#3/202212-202401#0/202207-202307,0/202206-202306,0/202205-202305,0/202101-202304,0/202101-202303,16,816
 
