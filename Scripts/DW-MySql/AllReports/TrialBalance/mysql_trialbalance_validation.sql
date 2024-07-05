@@ -3,7 +3,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -14,24 +14,43 @@ select *
 -- select count(*)
 -- 2024_04_05 count is 4638
 select count(*) from Plex.accounting_account_year_category_type aayct  
-where pcn = 123681 -- 27,743 (05/07/2024) # diff from MSSQL which has 27,748
+where pcn = 123681 -- 27,752 diff from mssql which had 27,757 on 07/05/2024 #27,743 (05/07/2024) # diff from MSSQL which has 27,748
+-- and year = 2025 -- 4,642
+and year = 2024 -- 3 accounts were added on july 5, 2024 accounts=4642 on July 5th # 4638/4639 1 account was added when i ran on jun 7
+and year = 2023 -- 4,639 on July 5, 2024 # 4638
+and year = 2022 -- DIFF HERE between mysql and mssql (4,622 mssql and 4617 in mysql)
+--and year = 2021 -- 4,617
+--and year = 2020 -- 4,595
+
 -- and year = 2020 -- 4,595
 -- and year = 2021 -- 4,617
--- and year = 2022 -- 4,622 mssql and 4617 in mysql
--- and year = 2023 -- 4638
-and year = 2024 -- 4638/4639 1 account was added when i ran on jun 7
--- and year = 2025 -- 4,638
--- and year = 2026 -- 0
-and year between 2023 and 2024 -- 9,275(05/07/2024)/9,255
-limit 10
 
+/*
+ * Try to find any new accounts by comparing Plex.account_period_balance to Plex.accounting_account_year_category_type 
+ * after the AccountingYearCategoryType.sh script and before the AccountPeriodBalanceRecreatePeriodRange.sh script 
+ */
+
+select b.pcn,b.account_no, c.pcn,c.[year],c.account_no 
+from Plex.accounting_account_year_category_type c 
+left outer join Plex.account_period_balance b
+on c.pcn = b.pcn 
+and c.account_no = b.account_no 
+where c.pcn = 123681 -- 23,063
+and c.[year] = 2024
+limit 10
+order by b.pcn 
+
+--Accounts added on 5 July 2024:
+--123681	2024	12450-000-0000
+--123681	2024	77300-850-0055
+--123681	2024	90300-850-0000
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -50,7 +69,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -73,7 +92,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -98,7 +117,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -126,7 +145,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -185,7 +204,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -203,11 +222,10 @@ SELECT distinct pcn,period
 -- select top 10 *
 FROM Plex.accounting_balance 
 where pcn = 123681 
---  and period = 202403  -- 224
- and period = 202404  -- 230
--- and period = 202308  -- 232
+-- and period = 202404  -- 230
+-- and period between 202307 and 202404  -- 2327 on july 5th
+and period between 202306 and 202404  -- 2560
 and period between 202305 and 202403  -- 2578
-
 and period between 202305 and 202402  -- 2354
 and period between 202304 and 202402  -- 2597
 and period between 202303 and 202401  -- 2607
@@ -258,7 +276,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -315,7 +333,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -397,7 +415,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 
@@ -455,7 +473,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 The CsvToTrialBalance python script is meant to replace the SSIS script
@@ -548,7 +566,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-06-07 00:00:00' and '2024-06-08 00:00:00' 
+and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
 select count(*)
