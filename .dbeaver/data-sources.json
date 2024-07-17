@@ -844,13 +844,13 @@
 		"mysql8-190c25bcf5c-15c6666628c94596": {
 			"provider": "mysql",
 			"driver": "mysql8",
-			"name": "repsys11_c1_n1",
+			"name": "repsys11-c2-n1",
 			"save-password": true,
 			"configuration": {
-				"host": "repsys11_c2_n1",
+				"host": "repsys11-c2-n1",
 				"port": "30031",
 				"database": "mysql",
-				"url": "jdbc:mysql://repsys11_c2_n1:30031/mysql",
+				"url": "jdbc:mysql://repsys11-c2-n1:30031/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -861,6 +861,31 @@
 					"allowPublicKeyRetrieval": "TRUE"
 				},
 				"auth-model": "native"
+			}
+		},
+		"microsoft-190c2a4cb24-6705509639264496": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "microk8s-vm",
+			"save-password": true,
+			"configuration": {
+				"host": "microk8s-vm",
+				"port": "31433",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dmicrok8s-vm;port\u003d31433;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"trustServerCertificate": "true"
+				},
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database",
+				"handlers": {}
 			}
 		}
 	},
