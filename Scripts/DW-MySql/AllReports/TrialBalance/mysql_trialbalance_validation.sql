@@ -207,6 +207,15 @@ where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
 and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
 order by script_history_key desc
 
+SELECT @@global.time_zone, @@session.time_zone;
++--------------------+---------------------+
+| @@global.time_zone | @@session.time_zone |
++--------------------+---------------------+
+| SYSTEM             | SYSTEM              |
++--------------------+---------------------+
+1 row in set (0.00 sec)
+SELECT CURRENT_TIMESTAMP ;
+
 
 /*
 If no_update = 0 the AccountingBalanceAppendPeriodRange ETL script calls accounting_balance_append_period_range_dw_import
