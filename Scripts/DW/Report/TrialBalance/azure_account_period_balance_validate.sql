@@ -9,15 +9,18 @@ SELECT
     [Text]
   FROM Plex.Datasource_Text
 SELECT * FROM ssis.ScriptComplete sc  
-  
+
+/* script time test query start */
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
+--where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
 and start_time between '2024-07-05 00:00:00' and '2024-08-09 00:00:00' 
 --and start_time between '2024-01-09 00:00:00' and '2024-01-10 00:00:00' 
-order by name,start_time desc
+order by name desc,start_time desc
+/* script time test query end */
 
 select * from ETL.Script s 
 -- delete from ETL.script_history where script_history_key = 4746
