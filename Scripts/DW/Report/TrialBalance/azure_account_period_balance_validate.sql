@@ -15,11 +15,11 @@ select s.Name, sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
--- where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
- and start_time between '2024-07-05 00:00:00' and '2024-08-10 00:00:00' 
+--where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
+ where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+ and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
 -- and start_time between '2024-01-09 00:00:00' and '2024-01-10 00:00:00' 
-order by name desc,start_time desc
+order by start_time desc
 /* script time test query end */
 
 select * from ETL.Script s 
@@ -761,10 +761,11 @@ where account_no = '11030-000-0000' -- not found in tbml on 6/7/2024
 declare @pcn int;
 set @pcn= 123681;
 declare @period_start int;
-set @period_start = 202306;
+set @period_start = 202308;
 declare @period_end int;
+set @period_end = 202408;
 --set @period_end = 202407; -- TB-202307_to_202407_on_08-06_DM_HL 
-set @period_end = 202406; -- TB-202306_to_202406_on_07-07_DM_HL --3 new accounts added this month
+--set @period_end = 202406; -- TB-202306_to_202406_on_07-07_DM_HL --3 new accounts added this month
 --set @period_end = 202406; -- TB-202306_to_202406_on_07-07_DM_HL --no changes in 202305 to 202405
     
 --set @period_end = 202405; -- TB-202305_to_202405_on_06-07_DM -- passed but new account is not   
@@ -819,12 +820,13 @@ set @period_end = 202406; -- TB-202306_to_202406_on_07-07_DM_HL --3 new accounts
 -- set @period_end = 202306; -- TB-202207_to_202307_on_08-09_DM
 -- set @period_end = 202306; -- TB-202206_to_202306_on_07-11_DM
 
---select count(*)
+select b.pcn,b.period, count(*)
 ---- select distinct b.period
---from Plex.account_period_balance b 
---where b.pcn = @pcn
---and b.period between @period_start and @period_end -- 64,708
-
+from Plex.account_period_balance b 
+group by b.pcn,b.period 
+having b.pcn = @pcn
+and b.period between @period_start and @period_end -- 64,708
+order by period DESC 
 
 -- select b.period,b.account_no 
 -- ,b.balance b_balance, d.current_debit_credit d_balance
