@@ -1,86 +1,58 @@
-SELECT 
-    Datasource_Key,
-    Datasource_Name,
-    Datasource_Type,
-    Note,
-    Module,
-    [Database_Name],
-    [Procedure_Name],
-    [Text]
-  FROM Plex.Datasource_Text
-SELECT * FROM ssis.ScriptComplete sc  
-
-/* script time test query start */
-select s.Name, sh.*
-from ETL.script_history sh 
-join ETL.script s 
-on sh.script_key=s.Script_Key 
---where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
- where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-02 00:00:00' and '2024-12-03 00:00:00' 
-order by start_time desc
-/* script time test query end */
-
-select * from ETL.Script s 
--- delete from ETL.script_history where script_history_key = 4746
-
+--There were over 200 new accounts added this period, 12/3/24
 /*
-AccountingYearCategoryType: Run this ETL Script in late December.   
-It is used to add account category records for each year.  up 
-This is needed in YTD calculations which rely on if an account  
-is a revenue/expense to determine whether to reset YTD values to 0 for every year. 
-*/
-
--- 2024_04_05 count is 4638
-select count(*) from Plex.accounting_account_year_category_type aayct  
-where pcn = 123681 -- 27,757#27,750#27,748 mssql (05/08/24) and 27,743 in mysql
---and year = 2025 -- 4,642
--- and year = 2024 -- 3 accounts were added on july 5, 2024 accounts=4642 on July 5th # 4638/4639 1 account was added when i ran on jun 7
-and year = 2023 -- 4,639 on July 5, 2024 # 4638
-and year = 2022 -- DIFF HERE between mysql and mssql (4,622 mssql and 4617 in mysql)
---and year = 2021 -- 4,617
---and year = 2020 -- 4,595
-
-/*
- * Try to find any new accounts by comparing Plex.account_period_balance to Plex.accounting_account_year_category_type 
- * after the AccountingYearCategoryType.sh script and before the AccountPeriodBalanceRecreatePeriodRange.sh script 
+ * Backup tables
  */
-
-select top 10 b.pcn,b.account_no, c.pcn,c.[year],c.account_no 
-from Plex.accounting_account_year_category_type c 
-left outer join Plex.account_period_balance b
-on c.pcn = b.pcn 
-and c.account_no = b.account_no 
-where c.pcn = 123681 -- 23,063
-and c.[year] = 2024
-order by b.pcn 
-
---Accounts added on 5 July 2024:
---123681	2024	12450-000-0000
---123681	2024	77300-850-0055
---123681	2024	90300-850-0000
-
--- select top 10 *
--- select count(*)
-from Plex.account_period_balance 
---order by pcn,period desc
-where pcn = 123681 
---and period = 202405  -- 4,639
-and period = 202404  -- 4,621
-
-
-select top 10 * from Plex.accounting_account_year_category_type aayct 
-where pcn = 123681 -- 23,063
-and year between 2024 and 2025
-order by account_no 
+select * 
+--select count(*) cnt
+--into Archive.account_activity_summary_12_03_24 -- 12/3/24 cnt=156,166
+from Plex.account_activity_summary -- 156,166
+where pcn = 123681 -- 134,401
+/*
+ * Check backup
+ */
+select top 10 *
+--select count(*) cnt 
+from Archive.account_activity_summary_12_03_24 -- 156,166
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-02 00:00:00' and '2024-12-03 00:00:00' 
+and start_time between '2024-12-04 00:00:00' and '2024-12-05 00:00:00' 
 order by script_history_key desc
+
+/*
+AccountingYearCategoryType:    
+It is used to keep track of if an account is classified as an expense or revenue for each year.   
+This is needed in YTD calculations which checks if an account  
+is a revenue/expense to determine whether to reset YTD values to 0 for every year. 
+*/
+
+select count(*) from Plex.accounting_account_year_category_type aayct  
+where pcn = 123681 -- 28,270#27,757#27,750#27,748 mssql (05/08/24) and 27,743 in mysql
+and year = 2024 -- 4894 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+--accounting_year_category_type_count says 4,893 the day after I ran the scripts and got 4,885
+
+/*
+ * Try to find any new accounts by comparing Plex.account_period_balance to Plex.accounting_account_year_category_type 
+ * after the AccountingYearCategoryType.sh script and before the AccountPeriodBalanceRecreatePeriodRange.sh script 
+ */
+
+--select top 10 b.pcn,b.account_no, c.pcn,c.[year],c.account_no 
+--select top 300 b.pcn,b.account_no, c.pcn, c.account_no 
+--There are 244 new accounts on 12/03/24
+
+select top 10 *
+--select c.account_no 
+from Plex.accounting_account_year_category_type c 
+left outer join Plex.account_period_balance b
+on c.pcn = b.pcn 
+and c.account_no = b.account_no 
+where c.pcn = 123681 -- 23,063
+and c.[year] = 2024
+and b.pcn is NULL
+order by c.account_no 
 
 
 /*
@@ -124,49 +96,50 @@ and a.account_key=b.account_key
 
 */
 
-/*
- * Why is there 4638 accounts in Plex.accounting_account_year_category_type but on 4,622 accounting_account
- * Plex says 4638 in its accounting_year_category_type sproc
- */
-select count(*) from Plex.accounting_account  -- 19,287/19,286,19,176
-where pcn=123681 -- 4,885 on 12/3/24 ### 4,642 3 accounts were added on July 5th, 2024# 4,639 1 account added on Jun 2024 /4,638/4,622/4,621/4,617
-select distinct(pcn) from Plex.accounting_account  
-select *
--- select top 10 * 
-from Plex.accounting_account  
---where account_no = '10110-000-00000'
-where account_no = '11055-000-9806'  -- new account
-
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-02 00:00:00' and '2024-12-03 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
 
+select top 10 * 
+-- select count(*) 
+from Plex.accounting_account  -- 19,287/19,286,19,176
+where pcn=123681 -- 4,894 on 12/05/24 | 4,893 on 12/04/24 ### 4,885 on 12/3/24 ### 4,642 3 accounts were added on July 5th, 2024# 4,639 1 account added on Jun 2024 /4,638/4,622/4,621/4,617
+--where account_no = '10110-000-00000'
+--accounting_account_DW_count = 4893 on 12/3/24
 
 /*
-Accounting_period ETL script is used to refresh the DW accounting_period table containing 
+Accounting_period ETL script: accounting_period_dw_import
+Is used to refresh the DW accounting_period table containing 
 start and end period dates, and add_date and update_date which well help us determine if  
 there has been updates to the period since the last time these scripts were ran. 
-*/
-  select *
- -- select count(*)
- from Plex.accounting_period p  
- where pcn = 123681 -- 1084/1060/1036
- and ordinal = 0  -- 542 
- and ordinal = 1 -- 566
- and period > 202101 -- 718/694/670
-and period between 202306 and 202308
+The add_date is calculated by taking the max(add_date) for each pcn,period from the accounting_v_balance period view
+,ad.add_date add_date 
+,pu.updated_date updated_date -- this gotten directly from the accounting_v_period view.
+We keep 2 records for each period. Ordinal 1 containss the most current information.
 
-select s.Name,sh.*
-from ETL.script_history sh 
-join ETL.script s 
-on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-02 00:00:00' and '2024-12-03 00:00:00' 
-order by script_history_key desc
+Note:   This script converts Plex format to datetime with 3 precision second decimal
+If DW column was datetime2 no conversion would be necessary
+*/
+select top 10 *
+-- select count(*)
+from Plex.accounting_period p  
+where pcn = 123681 -- 1,132/1084/1060/1036
+and ordinal = 0  -- 566 
+and ordinal = 1 -- 566
+--and period > 202101 -- 718/694/670
+and period between 202410 and 202410
+
+--Noticed that period 202410 was updated on 2024-11-19 and that explained why some account balances had 
+--different values than the ones showing in the DW which were last updated early in Nov.
+|pcn    |period_key|period |fiscal_order|begin_date             |end_date               |period_display|quarter_group|period_status|add_date               |update_date            |ordinal|
+|-------|----------|-------|------------|-----------------------|-----------------------|--------------|-------------|-------------|-----------------------|-----------------------|-------|
+|123,681|45,984    |202,410|10          |2024-10-01 00:00:00.000|2024-10-31 23:59:59.000|10-2024       |4            |0            |2024-11-19 10:47:49.690|2024-11-19 10:48:00.000|0      |
+|123,681|45,984    |202,410|10          |2024-10-01 00:00:00.000|2024-10-31 23:59:59.000|10-2024       |4            |0            |2024-11-19 10:47:49.690|2024-11-19 10:48:00.000|1      |
+
 
 
 /* 
@@ -176,140 +149,45 @@ order by script_history_key desc
   Pushed the min open period to one period back from the actual min open period
   in case the period was recently opened/closed, so the calculation is 
   based on the account activity summary web service which will have the 
-  most up-to-date values.
+  most up-to-date values because it accesses the production database.
  */
---TB-202205_to_202305_on_06-09_DM
 select * from Plex.accounting_period_ranges -- 202105/202204
 where pcn = 123681
-id		pcn		start_period	end_period	start_open_period	end_open_period	no_update
-1,704	123,681	202,311			202,409		202,410				202,411			0
-1705	123681	202312			202409		202410				202412			0
 |id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
 |-----|-------|------------|----------|-----------------|---------------|---------|
-|1,697|123,681|202,307     |202,404   |202,405          |202,407        |0        |
+|1,707|123,681|202,312     |202,409   |202,410          |202,412        |0        |
 
-|start_period|end_period|start_open_period|end_open_period|no_update|
-|------------|----------|-----------------|---------------|---------|
-|202,306     |202,404   |202,405          |202,406        |0        |
-
-
--- update Plex.accounting_period_ranges 
--- set start_period = 202211,no_update = 0
--- set no_update=0
-where pcn = 123681
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
 
 /*
-The AccountingStartPeriodUpdate script calls the accounting_start_period_update python script 
-to determine the date the Forever-to-date and YTD calculations need be started. This script
-is not perfect.  It is bases its decision on the updated_date of the previous accounting_period
-record being different than the current one. If the pipeline fails before the FTD and YTD balances
-are calculated and then it is restarted then both the updated_dates will be the same. Then 
-you must manually change the accounting_period_ranges start_period  to what the AccountingPeriodRanges
-script set it to be.
- */
-
-select * from Plex.accounting_period_ranges -- 202105/202204
-where pcn = 123681
--- update Plex.accounting_period_ranges 
--- set start_period = 202211,no_update = 0
--- set end_open_period = 202312
-set end_open_period = 202401
-
- -- set no_update=0
-where pcn = 123681
-
--- update Plex.accounting_period_ranges 
---set start_period = 202201,no_update = 0
--- set start_period = 202208,no_update = 0
--- set no_update=0
-where pcn = 123681
-
-select s.Name,sh.*
-from ETL.script_history sh 
-join ETL.script s 
-on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
-order by script_history_key desc
-
-/*
- * You can verify the AccountingStartPeriodUpdate script by running this select command.
- * The ending period should be the Plex.accounting_period_ranges.end_period value.
- */
-select p1.pcn,p1.period,p1.update_date prev_update_date,p2.update_date cur_update_date 
-from Plex.accounting_period p1  
-join Plex.accounting_period p2
-on p1.pcn=p2.pcn 
-and p1.period_key=p2.period_key
-and p1.ordinal = 0
-and p2.ordinal = 1
-where p1.pcn = 123681 
-and p1.period between 202201 and 202306
-and p1.update_date <> p2.update_date 
-/*
- *  Or you can verify the AccountingStartPeriodUpdate script by running this select command.
- *  The ending period should be the Plex.accounting_period_ranges.end_period value.
- */
-select o0.period_display,o0.add_date,o1.add_date,o0.update_date,o1.update_date
-from 
-(
- select * 
- from Plex.accounting_period o0 -- 1276/1418
- where pcn = 123681 -- 518
- and ordinal = 0
- and period between 202201 and 202302
-
-) o0  
-inner join 
-(
- select * 
- from Plex.accounting_period o0 -- 1276/1418
- where pcn = 123681 -- 518
- and ordinal = 1
-) o1  
-on o0.pcn = o1.pcn 
-and o0.period_key = o1.period_key
-and o0.update_date!=o1.update_date
-
-select s.Name,sh.*
-from ETL.script_history sh 
-join ETL.script s 
-on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-07-05 00:00:00' and '2024-07-06 00:00:00' 
-order by script_history_key desc
-
-/*
-If no_update = 0 the AccountingBalanceAppendPeriodRange ETL script calls accounting_balance_append_period_range_dw_import
+The AccountingBalanceAppendPeriodRange ETL script calls accounting_balance_append_period_range_dw_import
 sproc300758_11728751_2000117 (pcn,start_period,end_period) to pull the most recent accounting_balance records from Plex.
 It then runs Plex.accounting_balance_delete_period_range to delete the outdated accounting_balance records in the DW. 
+It then inserts the data returned from the accounting_balance_append_period_range_dw_import SPROC 
+into the DW accounting_balance table.
+
+The AccountingBalanceAppendPeriodRange ETL script originally called a SPROC that retrieved data from the 
+MySQL DW accounting_period_ranges table. Which had the advantage of the developer being able to change values 
+of that table if desired for debugging purposes.
+
 */
-select * from Plex.accounting_period_ranges apr where pcn=123681
-|id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
-|-----|-------|------------|----------|-----------------|---------------|---------|
-|1,697|123,681|202,312     |202,409   |202,410          |202,412        |0        |
-
-|start_period|end_period|start_open_period|end_open_period|no_update|
-|------------|----------|-----------------|---------------|---------|
-|202,306     |202,404   |202,405          |202,406        |0        |
-
 
 -- select count(*)
 -- select top 10 *
 FROM Plex.accounting_balance 
-where pcn = 123681 -- 49,022/49,021
+where pcn = 123681 -- 49,326 on Dec 5,24 | 49,022/49,021
+ and period = 202411  -- 0 
+ and period = 202410  -- 304 
+-- and period = 202409  -- 235 
+and period between 202312 and 202410  -- 2585 on Dec 5 | 2281/2280 on Dec 2
 and period between 202312 and 202409  -- 2281/2280 on Dec 2
-
--- and period = 202404  -- 230
--- and period = 202308  -- 232
 and period between 202308 and 202405  -- 2324 on Aug 6
 and period between 202307 and 202404  -- 2327 on july 5th
 and period between 202306 and 202404  -- 2560
@@ -326,394 +204,172 @@ and period between 202211 and 202309  -- 2676
 and period between 202211 and 202308  -- 2417
 and period between 202210 and 202308  -- 2651
 and period between 202209 and 202307  -- 2654
-and period = 202307  -- 234
-
- -- and period = 202301  -- 244
--- and period = 202302  -- 241
--- and period = 202303  -- 240
--- and period between 202206 and 202304  -- 2641
--- and period = 202304  -- 243
--- and period between 202207 and 202305  -- 2,646
--- and period = 202305  -- 248
- and period = 202306  -- 233
- and period = 202307  -- 0
-
-order by pcn,period 
 
 /*
- * Detected an error on 03/09/2023: 
- * no_update = 1 but there were no 2023-01 balance records at all.
- * The daily scripts were not running during this period.
- * Until the scripts are running again run the TrialBalance pipeline
- * with start_period_update = 0 so all the balance records will be
- * pulled from Plex.
- */
- select * 
- from Plex.accounting_period  -- 1276/1418
- where pcn = 123681 -- 518
- -- and ordinal = 0
- and period between 202212 and 202302
- order by pcn,period 
+AccountActivitySummaryGetOpenPeriodRange
+Takes the open period range from Plex.accounting_period_ranges and calls the Account_Activity_Summary_xPCN_Get web service 
+twice for each period. We use the start and end account_no SOAP parameters when calling this web service to reduce the 
+number of records returned to prevent a timeout from occurring. 
+This gives the most up-to-date totals for each account. 
+The Plex.account_activity_summary records for this
+range are then deleted and re-added using the uptodate web service data.
+*/
+
+select * from Plex.accounting_period_ranges -- 202105/202204
+where pcn = 123681
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
+--if (rec[0][0] = '123681') { "Adult" } else { "Minor" }
+--if (rec[0][2] = '63300-200-0000'):
+--   test = test + 1
 
-/*
-AccountActivitySummaryGetOpenPeriodRange
-Takes the open period range from Plex.accounting_period_ranges and calls the Account_Activity_Summary_xPCN_Get web service
-for each period. This gives the most up-to-date totals for each account. The Plex.account_activity_summary records for this
-range are then deleted and added using the web service data.
+-- vscode debug window 
+/* 
+for i in list:
+  if i.Columns.Column[1].Value == '11010-000-0000':
+    print(i.Columns.Column[4].Value)
+    print(i.Columns.Column[5].Value)
+    print(i.Columns.Column[6].Value)
+    print(str(round(float(i.Columns.Column[5].Value)-float(i.Columns.Column[6].Value),5)))
+    print(i.Columns.Column[7].Value)
+
+for i in list:
+  if i.Columns.Column[1].Value == '71100-200-0000':
+    print(i.Columns.Column[4].Value)
+    print(i.Columns.Column[5].Value)
+    print(i.Columns.Column[6].Value)
+    print(str(round(float(i.Columns.Column[5].Value)-float(i.Columns.Column[6].Value),5)))
+    print(i.Columns.Column[7].Value)
 */
 
-select * from Plex.accounting_period_ranges -- 202105/202204
-where pcn = 123681
--- update Plex.accounting_period_ranges 
-set start_period = 202208,no_update = 0
--- set no_update=0
-where pcn = 123681
+/*
+ * Backup tables
+ */
+select * 
+--select count(*) cnt
+--into Archive.account_activity_summary_12_03_24 -- 12/3/24 cnt=156,166
+from Plex.account_activity_summary -- 156,166
+/*
+ * Check backup
+ */
+select top 10 *
+--select count(*) cnt 
+from Archive.account_activity_summary_12_03_24 -- 156,166
 
-select distinct pcn,period 
-
---Accounts added on 5 July 2024:
---123681	2024	12450-000-0000
---123681	2024	77300-850-0055
---123681	2024	90300-850-0000
-
-select pcn,period,account_no, cnt 
-from
-(
-	select pcn, period, account_no, count(*) cnt 
-	from Plex.account_activity_summary
-	group by pcn,period,account_no 
-	having pcn=123681 and period = 202410 
-) c 
---where cnt > 1
-order by account_no
-
-
-select count(*) from Plex.accounting_account  -- 19,287/19,286,19,176
-where pcn=123681 -- 4,885 on 12/3/24 ### 4,642 3 accounts were added on July 5th, 2024# 4,639 1 account added on Jun 2024 /4,638/4,622/4,621/4,617
-select count(*) from accounting_v_account  -- 3931
-accounting_account_DW_count = 4893
+select s.Name,sh.*
+from ETL.script_history sh 
+join ETL.script s 
+on sh.script_key=s.Script_Key 
+where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
+order by script_history_key desc
 
 select count(*) cnt 
 from Plex.account_activity_summary
-where pcn=123681 and period = 202410 -- 4,650
---There are now, 4893 records, on 12/03/24 
+where pcn = 123681 -- 139539|139537|134401/134,401
+--and period = 202412 -- 4894|4893
+and period = 202411 -- 4894|4893 | 4,650 before running script on 12/4/24 
+--and period = 202410 -- 4893 | 4,650 before running script on 12/4/24
+--and period = 202409 -- 4,650 before running script on 12/4/24
+--and account_no BETWEEN '00000-000-00000' and  '66666-666-66666' -- 2209/2140
+and account_no BETWEEN '66666-666-66667' and  '99999-999-99999' -- 2685/2684/2510
 
-select *
-from Plex.account_activity_summary
-where pcn=123681 and period = 202410 
-and account_no in ('11010-000-0000','71100-200-0000') 
+
+select top 10 *
+--select count(*) cnt
+from Plex.account_activity_summary 
+WHERE pcn = 123681 
+and period = 202412
+--and account_no = '11010-000-0000' 
+and account_no = '71100-200-0000' 
+--and account_no BETWEEN '10000-000-00000' and  '10030-000-00000'
+
 |pcn    |period |account_no    |beginning_balance|debit        |credit       |balance     |ending_balance|
 |-------|-------|--------------|-----------------|-------------|-------------|------------|--------------|
 |123,681|202,410|11010-000-0000|8,012,674.8      |18,530,321.66|17,092,807.77|1,437,513.89|9,450,188.69  |
 |123,681|202,410|71100-200-0000|43,523.99        |1,853.29     |369.88       |1,483.41    |45,007.4      |
 
-Soap 10/2024
+--Recent Soap query shows an increase on credit for 10/2024 since the Oct TB report
 11010-000-0000
 8012674.8
 18530321.66 - debit
 18511489.3 - credit increased from 17,092,807.77 on 10-2024	10/31/24	JE: Group BS Clean Up Adjustment by 1,418,681.53
 8031507.16
 
-71100-200-0000
-   <Column>
-      <Value>43523.99</Value>
-      <Name>Beginning_Balance</Name>
-   </Column>
-   <Column>
-      <Value>1853.29</Value>
-      <Name>Debit</Name>
-   </Column>
-   <Column>
-      <Value>369.88</Value>
-      <Name>Credit</Name>
-   </Column>
-   <Column>
-      <Value>45007.4</Value>
-      <Name>Ending_Balance</Name>
-   </Column>
-
-
-select * 
---select count(*) cnt
-into Archive.account_activity_summary_12_03_24 -- 12/3/24 cnt=156,166
-from Plex.account_activity_summary
-
-select top 10 *
---select count(*) cnt 
-from Archive.account_activity_summary_12_03_24 -- 156,166
--- select *
---202403	11010-000-0000	-1908671.25000	-11802304.87	18051664.47000	8158030.85
---select top 1 * 
-from Plex.account_activity_summary  
-where pcn=123681 and period = 202406 
-and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
-|pcn    |period |account_no    |beginning_balance|debit       |credit   |balance     |ending_balance|
-|-------|-------|--------------|-----------------|------------|---------|------------|--------------|
-|123,681|202,406|12450-000-0000|0                |1,307,919.4 |0        |1,307,919.4 |1,307,919.4   |
-|123,681|202,406|77300-850-0055|0                |2,381,218.95|0        |2,381,218.95|2,381,218.95  |
-|123,681|202,406|90300-850-0000|0                |0           |10,007.48|-10,007.48  |-10,007.48    |
-
-
-
--- Find new account
-with account_summary_05
-as
-(
-	select account_no 
-	from Plex.account_activity_summary  
-	where pcn=123681
-	 and period = 202405  -- 4639
-
-)
---select count(*) cnt from account_summary_05
-,account_summary_04
-as
-(
-	select account_no 
---	select count(account_no) cnt
-	from Plex.account_activity_summary  
-	where pcn=123681
-	 and period = 202404  -- 4638
-)
---select count(*) cnt from account_summary_05 // 4,639
---select count(*) cnt from account_summary_04 // 4,638
---select count(*) cnt 
-,as5_as4
-as
-(
-	select as5.account_no an5,as4.account_no an4
-	from account_summary_05 as5
---	join account_summary_04 as4 -- 4638
-	left outer join account_summary_04 as4
-	on as5.account_no = as4.account_no
-)
---select count(*) cnt from as5_as4
-select * 
-from as5_as4
-where an4 is null 
-
---Found new account on 6/7/2024
-select *
-from Plex.account_activity_summary  
-where pcn=123681
-and account_no = '11030-000-0000'
-
-|pcn    |period |account_no    |beginning_balance|debit    |credit|balance  |ending_balance|
-|-------|-------|--------------|-----------------|---------|------|---------|--------------|
-|123,681|202,405|11030-000-0000|0                |16,666.36|0     |16,666.36|16,666.36     |
-|123,681|202,406|11030-000-0000|16,666.36        |4,316.25 |0     |4,316.25 |20,982.61     |
-
-select top 10 *
---select count(*) cnt  
-from Plex.account_activity_summary  
-where pcn=123681
--- order by pcn,period
---and period = 202410  -- 4650
---and period = 202409  -- 4650
- and period = 202408  -- 4642
- and period = 202407  -- 4642
- order by debit desc
- and period = 202406  -- 4642/4639
- and period = 202405  -- 4639
- and period = 202404  -- 4638
-
--- select count(*)
-from Plex.account_activity_summary  
-where pcn=123681
--- order by pcn,period
- and period = 202406  -- 4,642/4639
- and period = 202405  -- 4639
- and period = 202404  -- 4638
- and period = 202403  -- 4638
--- and period = 202401  -- 4622
--- and period = 202312  -- 4617
--- and period = 202311  -- 4617
-and period between 202403 and 202404 -- 9,276
-and period between 202402 and 202403 -- 9,244
-and period between 202401 and 202402 -- 9,244
-and period between 202312 and 202401 -- 9,244
-and account_no = '11055-000-9806'  -- new account
-
---123681	202312	11055-000-9806	0.00000	95934.43000	872657.96000	-776723.53000	-776723.53000
---123681	202401	11055-000-9806	-776723.53000	0.00000	95934.43000	-95934.43000	-872657.96000
-
---order by pcn,period desc
--- and period = 202401  -- 4622
--- and period = 202312  -- 4617
--- and period = 202311  -- 4617
-and period between 202312 and 202401 -- 9,244
-and period between 202311 and 202401 -- 13,866
-
- and period between 202311 and 202312 -- 9,244/9,242
-and period between 202310 and 202312 -- 13,863
-and period between 202310 and 202311 -- 9,234
-and period between 202309 and 202311 -- 13,851
-
---and period = 202310  -- 4617
-and period between 202309 and 202310 -- 9,234
-
--- and period = 202309  -- 4617
-and period between 202308 and 202309 -- 9,234
-
--- and period between 202303 and 202304 -- 9,234
---and period between 202304 and 202305 -- 9,234
---and period between 202305 and 202306 -- 9,234
--- and period between 202306 and 202307 -- 9,234
--- and period between 202307 and 202308 -- 9,234
-
-
-order by pcn,period
-
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
+
 
 /*
 AccountPeriodBalanceRecreatePeriodRange
 The AccountPeriodBalanceRecreatePeriodRange ETL Script runs the Plex.account_period_balance_recreate_period_range procedure 
 It calculates the Forever-to-date and YTD account totals by adding the accounting_balance totals for the period to the previous
 periods values starting from the period previous to the start_period stored in the Plex.accounting_period_ranges table.
+When accounts are added they are added to previous periods with 0 balance
 */
 /*
- * Backup
+ * Backup tables
  */
---select schema_name(t.schema_id) as schema_name,
---       t.name as table_name,
---       t.create_date,
---       t.modify_date
---from sys.tables t
---where schema_name(t.schema_id) = 'Archive' -- put schema name here
---and t.name like '%account_per%'
---order by table_name;
--- select * 
-into Archive.account_period_balance_2024_04_05 -- 268,047
---into Archive.account_period_balance_2024_02_08 -- 258,803
---into Archive.account_period_balance_10_18_2023 -- 244,878
--- into Archive.account_period_balance_11_30_2023 -- 249,495
---into Archive.account_period_balance_08_24_2023 -- 235,644
--- into Archive.account_period_balance_08_09_2023 -- 231,027
--- into Archive.account_period_balance_05_09_2023 -- 217,176
---into Archive.account_period_balance_04_11_2023 -- 212,559
-from Plex.account_period_balance b -- 43,630
---select count(*) from Archive.account_period_balance_2022_06_04 -- 140,713
-select distinct pcn,period 
---select count(*) 
-from Archive.account_period_balance_2024_02_08 -- 258,803
-from Archive.account_period_balance_05_09_2023 -- 140,713
--- where period between 202201 and 202303 -- -- 69,255
-where period between 202201 and 202305 -- 69,255
-and pcn = 123681
-order by pcn,period 
+select * 
+--select count(*) cnt
+into Archive.account_period_balance_2024_12_03 -- 305,544
+--into Archive.account_period_balance_2024_04_05 -- 268,047
+from Plex.account_period_balance b 
 
-select * from Plex.accounting_period_ranges -- 202105/202204
-where pcn = 123681
--- update Plex.accounting_period_ranges 
-set start_period = 202210,no_update = 0
--- set no_update=0
-where pcn = 123681
+/*
+ * Check backup
+ */
+select top 10 *
+-- select count(*) cnt 
+from Archive.account_period_balance_2024_12_03 -- 305,544
 
---WATCH: THERE WAS AN ERROR IN THIS SCRIPT FOR MYSQL THERE WAS A 202213 PERIOD  
---AccountPeriodBalanceRecreateOpenPeriodRange"
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
 
-and account_no = '11030-000-0000'
-
-select * 
---select count(*) cnt
--- into Archive.account_period_balance -- 12/3/24 cnt=305,544
-from Plex.account_period_balance
+/*
+ * How many records should be in the account_period_balance table for each period
+ */
+-- select count(*) 
+from Plex.accounting_account  -- 19,287/19,286,19,176
+where pcn=123681 -- 4,894 on 12/05/24 | 4,893 on 12/04/24 ### 4,885 on 12/3/24 ### 4,642 3 accounts were added on July 5th, 2024# 4,639 1 account added on Jun 2024 /4,638/4,622/4,621/4,617
 
 select distinct pcn,period 
 -- select top 10 *
--- select *
 -- select count(*)
-from Plex.account_period_balance 
+from Plex.account_period_balance -- 305,544 on 12/03/24
 --order by pcn,period desc
-where pcn = 123681 
-and period = 202407 -- 4,642
-and period = 202406 -- 4,642
-and period = 202405  -- 4,642#4,639
---and period = 202404  -- 4,621
-
-and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
-|pcn    |period |account_no    |beginning_balance|debit       |credit   |balance     |ending_balance|
-|-------|-------|--------------|-----------------|------------|---------|------------|--------------|
-|123,681|202,406|12450-000-0000|0                |1,307,919.4 |0        |1,307,919.4 |1,307,919.4   |
-|123,681|202,406|77300-850-0055|0                |2,381,218.95|0        |2,381,218.95|2,381,218.95  |
-|123,681|202,406|90300-850-0000|0                |0           |10,007.48|-10,007.48  |-10,007.48    |
-
-and account_no = '11030-000-0000' -- new account found on 6/7/2024
-order by period
-
-|pcn    |account_no    |period |period_display|debit    |ytd_debit|credit|ytd_credit|balance  |ytd_balance|
-|-------|--------------|-------|--------------|---------|---------|------|----------|---------|-----------|
-|123,681|11030-000-0000|202,404|04-2024       |0        |0        |0     |0         |0        |0          |
-|123,681|11030-000-0000|202,405|05-2024       |16,666.36|16,666.36|0     |0         |16,666.36|16,666.36  |
-|123,681|11030-000-0000|202,406|06-2024       |4,316.25 |20,982.61|0     |0         |4,316.25 |20,982.61  |
-
---where account_no = '10110-000-00000'
---and account_no = '11055-000-9806'  -- new account
-
---123681	202312	11055-000-9806	0.00000	95934.43000	872657.96000	-776723.53000	-776723.53000
---123681	202401	11055-000-9806	-776723.53000	0.00000	95934.43000	-95934.43000	-872657.96000
-
---and period = 202401  -- 4,621
---and period = 202312  -- 4,621
---and period = 202311  -- 4,621
-and period between 202304 and 202404  -- 60,294 (05/08/24)
-and period between 202304 and 202405  -- 64,932 (05/07/24)/64,294 
-and period between 202303 and 202404  -- 64,932 (04/05/24)
-and period between 202303 and 202401  -- 50,842(03/08/24)
---and period between 202302 and 202312  -- 50,842(02/08/24)
--- and period between 202301 and 202311  -- 50,842(01/11/24)
-
---and period between 202301 and 202401  -- 60,074(01/09/24)#60,074(01/04/24)
---and period between 202301 and 202312  -- 55,453(01/09/24)#55,453(01/03/24)
---and period between 202301 and 202401  -- 60,074(01/04/24)
-and period between 202301 and 202312  -- 55,453(01/03/24)
-and period between 202212 and 202312  -- 60,075(01/03/24)#60,073(12/12)#60,073(12/08)
---and period between 202211 and 202309  -- 50,787
---and period between 202211 and 202308  -- 46,170
---and period between 202210 and 202308  -- 50,787
---and period between 202209 and 202307  -- 50,787
--- and period between 202207 and 202306  -- 55,404
--- and period between 202208 and 202306  -- 50,787
--- and period between 202207 and 202307 -- 60,021
--- and period between 202206 and 202305 -- 55,404 
--- and period = 202308  -- 0
--- and period = 202307  -- 4,617
---and period = 202306  -- 4,617
--- and period = 202305  -- 4,617
---and period between 202205 and 202304 -- 55,404 
---and period = 202304  -- 4,617
+where pcn = 123681 -- 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
+--and period = 202412 -- 0
+--and period = 202411 -- 4,650
+--and period = 202410 -- 4,650
+--and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
+and period between 202312 and 202410  -- 53,834 (12/05/24) | 51,150 (12/03/24)
+and period between 202311 --4650
 
 select s.Name,sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
+and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
-
 
 /*
 AccountPeriodBalanceRecreateOpenPeriodRange
@@ -722,119 +378,22 @@ It calculates the Forever-to-date and YTD account totals by adding the accountin
 periods values starting from the period previous to the end_period stored in the Plex.accounting_period_ranges table.
 */
 
-
 select * from Plex.accounting_period_ranges -- 202303/202304
-where pcn = 123681
--- update Plex.accounting_period_ranges 
-set start_period = 202210,no_update = 0
--- set no_update=0
 where pcn = 123681
 
 select distinct pcn,period 
 -- select top 10 *
--- delete from Plex.account_period_balance where period = 202213
 -- select count(*)
 from Plex.account_period_balance 
-where pcn = 123681 
-and period between 202402 and 202403  -- 9,244(2024_03_08)
---and period between 202401 and 202402  -- 9,244(2024_02_08)
---and period between 202301 and 202311  -- 50,842
-and period between 202312 and 202401  -- 9,244
-
---where account_no = '10110-000-00000'
---and account_no = '11055-000-9806'  -- new account
-
+where pcn = 123681 -- 224,644 | 220,506
+--and period = 202412 -- 4,894
+--and period = 202411 -- 4,894
+and period = 202410 -- 4,650
+--and period = 202312 -- 4,894 on 12/5/24 | 4,650
+--and period = 202311 -- 4,894 on 12/5/24 | 4,650
+and period between 202411 and 202412  -- 9,788 (2024_12_05) | 9,300 (2024_12_03)
 -- order by pcn,period desc
 
---and period between 202311 and 202401  -- 13,864(01/09/24)#13,863(01/04/24)
-and period between 202311 and 202312  -- 9,243(01/09/24)#9,242(01/03/24)#9,234
---and period between 202310 and 202311  -- 9,234
---and period between 202309 and 202311  -- 13,851
---and period between 202309 and 202310  -- 9234
---and period between 202308 and 202309  -- 9234
---and period between 202307 and 202308  -- 9234
---and period between 202207 and 202307  -- 60,021
---and period between 202206 and 202306 -- 60,021 
---and period  = 202306
---and period between 202205 and 202305 -- 60,021 
---and period between 202304 and 202306 -- 13,851 
---and period between 202201 and 202305 -- 78,489 
--- and period between 202201 and 202303 -- 69,255 
--- and period between 202303 and 202304 --  -- 9,234
--- and period between 202301 and 202303 -- 13,851
--- and period between 202210 and 202212 -- 13,851
---   and period = 202301  -- 4,617
--- limit 100
--- and period >= 202204
-order by pcn,period desc
-
-select s.Name,sh.*
-from ETL.script_history sh 
-join ETL.script s 
-on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-08-06 00:00:00' and '2024-08-07 00:00:00' 
-order by script_history_key desc
-
-
-TrialBalance ssis ETL script that takes as input the Plex Trial Balance CSV file.   
-select distinct pcn,period from Plex.trial_balance_multi_level order by pcn,period desc
-
-The CsvToTrialBalance python script is meant to replace the SSIS script
-select distinct pcn,period from Plex.trial_balance_multi_level_py order by pcn,period desc
-select * from Plex.trial_balance_multi_level_py order by pcn,period desc
--- delete from Plex.trial_balance_multi_level_py where period = 202212
-
-GL_Account_Activity_Summary ETL script is used to validate accounts no longer showing in 
-the Trial Balance Multi level report.
-
-From Alb-utl Add or update Plex.trial_balance_multi_level records using the TrialBalance ETL script.  If you are sure there have been no changes 
-to previous period values then just run the script for the current period. 
-
-select * from Plex.accounting_period_ranges -- 202303/202304
-where pcn = 123681
-
-/*
- * Decide which TB periods to pull by  
- * each period has 2 records. ordinal 1 is the most recent
- * goto Main Compare: section and locate the last period to have any differences
- * and import all periods after and including that one for both balance and activity_summary records.
- * TB-202210_to_202310_on_11-07_DM_GP period 202310 not closed yet.No plex accessible account changes in 202309 so just import 202310 
- * TB-202209_to_202309_on_10-24_DM_GP found no diff between 202209 and 202308 from the trial_balance_multi_level so did not import 202308 again
- *  * TB-202209_to_202309_on_10-18_DM_GP found no diff between 202209 and 202308 from the trial_balance_multi_level so did not import 202308 again
- * TB-202209_to_202309_on_10-17_DM found 1 diff between 202209 and 202308 from the trial_balance_multi_level so i imported 202308 and 202309 again
- * |period |account_no    |b_balance|d_balance  |ytd_balance |ytd_debit_credit|
-|-------|--------------|---------|-----------|------------|----------------|
-|202,308|11010-000-0000|7,276.94 |-261,976.29|5,107,926.02|4,838,672.77    |
-
- * TB-202209_to_202309_on_10-10_DM found no diff between 202209 and 202308 from the trial_balance_multi_level so did not import 202308 again
- * TB-202208_to_202308_on_09-18_DM found no diff between 202209 and 202307 from the trial_balance_multi_level so did not import 202307 again
- * TB-202208_to_202308_on_09-13_DM found no diff between 202208 and 202307 from the trial_balance_multi_level so did not import 202307 again
- * TB-202208_to_202308_on_09-11_DM found no diff between 202208 and 202307 from the trial_balance_multi_level so did not import 202307 again
- * TB-202207_to_202307_on_08-24_DM found no diff between 202207 and 202307 from the trial_balance_multi_level so did not import 202307 again
- * TB-202207_to_202307_on_08-09_DM found no diff between 202207 and 202306 so just need to import 202307
- * TB-202206_to_202306_on_07-11_DM found no diff between 202206 and 202305 so just need to import 202306
- * TB-202205_to_202305_on_06-13_DM dan made minor adjustments to 202305
- * TB-202205_to_202305_on_06-09_DM found no diff between 202205 and 202304 so just need to import 202305
- * 05-09-2023: diff found in 202303 between trial_balance_multi-level and accounting_period_balance
- * 04-11-2023: diff found in 202303 between trial_balance_multi-level and accounting_period_balance
- * TB-202203_to_202303_on_04-11_DM
- * TB-202203_to_202303_on_04-11_GP
- * 03-09-2023: Pulled 202302 to 202303 since there where no updates on 202301 since 2023-02-27
- * 03-02-2023: Pulled 202212 to 202301
- */
-
-/*
- * backup
- */
---select schema_name(t.schema_id) as schema_name,
---       t.name as table_name,
---       t.create_date,
---       t.modify_date
---from sys.tables t
---where schema_name(t.schema_id) = 'Archive' -- put schema name here
---and t.name like '%account_per%'
---order by table_name;
 
 select * 
 -- into Archive.trial_balance_multi_level_01_03_2024 -- 765,128

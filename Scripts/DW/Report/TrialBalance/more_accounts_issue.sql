@@ -84,44 +84,10 @@ order by script_history_key desc
 
 
 /*
-Accounting_account ETL script calls the accounting_account_DW_Import plex sproc.  
-This is used to determine the current accounts needed in the account_period_balance table. It has 
-additional fields such as the category account and sub category account that are no longer supported by 
-Plex. I believe the Multi-Level in the Plex Multi-Level report has to do with an account that used the 
-category and sub-category account.  Not supporting the category and sub-category account linkage is 
-the reason Southfield's Plex Multi-Level report does not show many of the accounts.
-
--- select count(*)
--- select *
-from accounting_v_account_e  a
-join accounting_v_category_type act -- This is the value used by the new method of configuring plex accounts. 
-on a.category_type=act.category_type  -- 36,636
--- Category numbers linked to an account by the a category_account record will no longer be supported by Plex
-left outer join accounting_v_category_account_e ca  --
-on a.plexus_customer_no=ca.plexus_customer_no
-and a.account_no=ca.account_no
-left outer join accounting_v_category_e c  --
-on ca.plexus_customer_no=c.plexus_customer_no
-and ca.category_no=c.category_no
-left outer join accounting_v_category_type t -- This is the value used by the old method of configuring plex accounts. 
-on c.category_type=t.category_type
--- sub category numbers linked to an account by the sub category_account record will no longer be supported by Plex
-left outer JOIN accounting_v_sub_category_account_e AS sca
---JOIN accounting_v_Sub_Category_Account_e AS SCA -- 4,204 for 123681
-ON a.plexus_customer_no = sca.plexus_customer_no
-and a.account_no = sca.account_no
-left outer join accounting_v_sub_category_e sc  --
-on sca.plexus_customer_no=sc.plexus_customer_no
-and sca.sub_category_no=sc.sub_category_no
-left outer join accounting_v_category_e c2  --
-on sc.plexus_customer_no=c2.plexus_customer_no
-and sc.category_no=c2.category_no
-left outer join accounting_v_category_type t2 -- This is another value used by the old method of configuring plex accounts. 
-on c2.category_type=t2.category_type
-left outer join account_balance_start b 
-on a.plexus_customer_no = b.pcn
-and a.account_key=b.account_key
-
+Run the Accounting_account ETL script.  
+Issue: This is used to generate records in account_period_balance. Since the previous 12 months account_period_balance gets  regenerated 
+when a new period gets appended if the category type changes or an account somehow gets removed the previous 12 months worth of records 
+get be affected.  
 */
 
 /*
@@ -307,7 +273,6 @@ select * from Plex.accounting_period_ranges apr where pcn=123681
 FROM Plex.accounting_balance 
 where pcn = 123681 -- 49,022/49,021
 and period between 202312 and 202409  -- 2281/2280 on Dec 2
-
 -- and period = 202404  -- 230
 -- and period = 202308  -- 232
 and period between 202308 and 202405  -- 2324 on Aug 6
