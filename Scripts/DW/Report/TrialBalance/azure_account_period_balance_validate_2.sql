@@ -19,7 +19,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-04 00:00:00' and '2024-12-05 00:00:00' 
+and start_time between '2024-12-06 00:00:00' and '2024-12-07 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -101,7 +101,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
+and start_time between '2024-12-06 00:00:00' and '2024-12-07 00:00:00' 
 order by script_history_key desc
 
 select top 10 * 
@@ -163,7 +163,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
+and start_time between '2024-12-06 00:00:00' and '2024-12-07 00:00:00' 
 order by script_history_key desc
 
 /*
@@ -183,7 +183,7 @@ of that table if desired for debugging purposes.
 -- select top 10 *
 FROM Plex.accounting_balance 
 where pcn = 123681 -- 49,326 on Dec 5,24 | 49,022/49,021
- and period = 202411  -- 0 
+-- and period = 202411  -- 0 
  and period = 202410  -- 304 
 -- and period = 202409  -- 235 
 and period between 202312 and 202410  -- 2585 on Dec 5 | 2281/2280 on Dec 2
@@ -223,7 +223,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
+and start_time between '2024-12-06 00:00:00' and '2024-12-07 00:00:00' 
 order by script_history_key desc
 --if (rec[0][0] = '123681') { "Adult" } else { "Minor" }
 --if (rec[0][2] = '63300-200-0000'):
@@ -273,8 +273,8 @@ order by script_history_key desc
 select count(*) cnt 
 from Plex.account_activity_summary
 where pcn = 123681 -- 139539|139537|134401/134,401
---and period = 202412 -- 4894|4893
-and period = 202411 -- 4894|4893 | 4,650 before running script on 12/4/24 
+and period = 202412 -- 4894|4893
+--and period = 202411 -- 4894|4893 | 4,650 before running script on 12/4/24 
 --and period = 202410 -- 4893 | 4,650 before running script on 12/4/24
 --and period = 202409 -- 4,650 before running script on 12/4/24
 --and account_no BETWEEN '00000-000-00000' and  '66666-666-66666' -- 2209/2140
@@ -355,12 +355,12 @@ select distinct pcn,period
 -- select count(*)
 from Plex.account_period_balance -- 305,544 on 12/03/24
 --order by pcn,period desc
-where pcn = 123681 -- 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
---and period = 202412 -- 0
---and period = 202411 -- 4,650
---and period = 202410 -- 4,650
+where pcn = 123681 -- 225,644 on Dec 6,2024 | 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
+--and period = 202412 -- 4,894
+--and period = 202411 -- 4,894 | 4,650
+--and period = 202410 -- 4,894 | 4,650
 --and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
-and period between 202312 and 202410  -- 53,834 (12/05/24) | 51,150 (12/03/24)
+and period between 202312 and 202410  -- 53,834 (12/06/24) | 51,150 (12/03/24)
 and period between 202311 --4650
 
 select s.Name,sh.*
@@ -388,10 +388,10 @@ from Plex.account_period_balance
 where pcn = 123681 -- 224,644 | 220,506
 --and period = 202412 -- 4,894
 --and period = 202411 -- 4,894
-and period = 202410 -- 4,650
+--and period = 202410 -- 4,894
 --and period = 202312 -- 4,894 on 12/5/24 | 4,650
 --and period = 202311 -- 4,894 on 12/5/24 | 4,650
-and period between 202411 and 202412  -- 9,788 (2024_12_05) | 9,300 (2024_12_03)
+and period between 202311 and 202411  -- 63,622
 -- order by pcn,period desc
 
 
