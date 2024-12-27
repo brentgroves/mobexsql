@@ -866,7 +866,7 @@
 		"microsoft-190c2a4cb24-6705509639264496": {
 			"provider": "sqlserver",
 			"driver": "microsoft",
-			"name": "microk8s-vm",
+			"name": "microk8s-vm-sa",
 			"save-password": true,
 			"configuration": {
 				"host": "microk8s-vm",
@@ -884,8 +884,31 @@
 					"@dbeaver-show-all-schemas@": "false",
 					"sslTrustServerCertificate": "false"
 				},
-				"auth-model": "sqlserver_database",
-				"handlers": {}
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"microsoft-1912e9a62b9-4d593707fae2bf49": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "microk8s-vm-admin",
+			"save-password": true,
+			"configuration": {
+				"host": "microk8s-vm",
+				"port": "31433",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dmicrok8s-vm;port\u003d31433;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"trustServerCertificate": "true"
+				},
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
 			}
 		}
 	},

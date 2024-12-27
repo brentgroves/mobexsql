@@ -910,6 +910,50 @@
 				},
 				"auth-model": "sqlserver_database"
 			}
+		},
+		"mysql8-194050159b8-68057ec6845dcf68": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports-kind",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-1940512cf3b-1e079cd2fa44b909": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports-kind-np",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"database": "mysql",
+				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {
