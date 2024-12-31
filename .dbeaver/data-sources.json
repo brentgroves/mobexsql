@@ -318,10 +318,10 @@
 			"name": "reports31",
 			"save-password": true,
 			"configuration": {
-				"host": "reports31",
-				"port": "30031",
+				"host": "mysql.linamar.com",
+				"port": "80",
 				"database": "mysql",
-				"url": "jdbc:mysql://reports31:30031/mysql",
+				"url": "jdbc:mysql://mysql.linamar.com:80/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -545,13 +545,13 @@
 		"mysql8-18af1f664d9-6ad166986866575b": {
 			"provider": "mysql",
 			"driver": "mysql8",
-			"name": "reports31-2nd-instance",
+			"name": "mysql.linamar.com",
 			"save-password": true,
 			"configuration": {
-				"host": "reports31",
-				"port": "30032",
+				"host": "mysql.linamar.com",
+				"port": "80",
 				"database": "mysql",
-				"url": "jdbc:mysql://reports31:30032/mysql",
+				"url": "jdbc:mysql://mysql.linamar.com:80/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -943,6 +943,28 @@
 				"port": "3306",
 				"database": "mysql",
 				"url": "jdbc:mysql://localhost:3306/mysql",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native"
+			}
+		},
+		"mysql8-1941a14bbf8-376fc87529f1e37e": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "reports31-2nd-instance 1",
+			"save-password": true,
+			"configuration": {
+				"host": "reports31",
+				"port": "30032",
+				"database": "mysql",
+				"url": "jdbc:mysql://reports31:30032/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
