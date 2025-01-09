@@ -18,7 +18,7 @@ and il.item_no=st.Item
 left outer join INVENTRY inv
 on il.item_no=inv.ItemNumber
 where st.CribBin is null  --1922
-and il.quantity = 0 --17
+and il.quantity > 0 --17
 )set1	
 
 

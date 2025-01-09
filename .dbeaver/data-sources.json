@@ -976,6 +976,69 @@
 				},
 				"auth-model": "native"
 			}
+		},
+		"microsoft-1944c4f3c65-2f1b02f59839b301": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "busche-toollist",
+			"save-password": true,
+			"configuration": {
+				"host": "pd-avi-sql01",
+				"port": "1433",
+				"database": "Busche ToolList",
+				"url": "jdbc:sqlserver://;serverName\u003dpd-avi-sql01;databaseName\u003dBusche ToolList",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"microsoft-1944cc770a1-7ce0ee25d92ec66b": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "busche-toollist-admin",
+			"save-password": true,
+			"configuration": {
+				"host": "pd-avi-sql01",
+				"port": "1433",
+				"database": "Busche ToolList",
+				"url": "jdbc:sqlserver://;serverName\u003dpd-avi-sql01;databaseName\u003dBusche ToolList",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"mssql_jtds_legacy-1944d0f0d0d-7f1ef831a757c3a0": {
+			"provider": "mssql",
+			"driver": "mssql_jtds_legacy",
+			"name": "cribmaster-admin",
+			"save-password": true,
+			"configuration": {
+				"host": "pd-avi-sql01",
+				"port": "1433",
+				"database": "cribmaster",
+				"url": "jdbc:jtds:sqlserver://pd-avi-sql01/cribmaster",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "native"
+			}
 		}
 	},
 	"connection-types": {

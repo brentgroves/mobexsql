@@ -122,7 +122,7 @@ as
 		--803;
 		
 -- dbo.bvToolListsInPlants source
-
+select * from bvToolListItemsInPlants btliip 
 create VIEW [dbo].[bvToolListsInPlants]
 AS
 	select lv1.Originalprocessid,lv1.processid, 
@@ -218,7 +218,7 @@ AS
 			from
 			(
 				-- A tool list is not ready to go until it is released.  When a tool list is created 
-				-- it will be assigned a processed that will not change until it is “Submitted for Initial Release” 
+				-- it will be assigned a processed that will not change until it is ï¿½Submitted for Initial Releaseï¿½ 
 				-- and has been approved.  Until this time its released field will remain equal to 0.  Once a tool 
 				-- list has been approved by a supervisor its release field will change to 1 and will never return 
 				-- to 0 during it lifetime.
