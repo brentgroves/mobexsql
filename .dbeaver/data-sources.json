@@ -115,27 +115,6 @@
 				"auth-model": "sqlserver_database"
 			}
 		},
-		"azure-181874ea59c-38c70fcf14b842a1": {
-			"provider": "sqlserver",
-			"driver": "azure",
-			"name": "repsys",
-			"save-password": true,
-			"configuration": {
-				"host": "repsys.database.windows.net",
-				"database": "rsdw",
-				"url": "jdbc:sqlserver://;serverName\u003drepsys.database.windows.net;databaseName\u003drsdw;encrypt\u003dtrue",
-				"configurationType": "MANUAL",
-				"type": "dev",
-				"closeIdleConnection": false,
-				"provider-properties": {
-					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false",
-					"show-all-databases-azure": "false",
-					"sslTrustServerCertificate": "false"
-				},
-				"auth-model": "sqlserver_database"
-			}
-		},
 		"microsoft-181874ea5ce-57dc90f9adb5ea5c": {
 			"provider": "sqlserver",
 			"driver": "microsoft",
@@ -869,10 +848,10 @@
 			"name": "microk8s-vm-sa",
 			"save-password": true,
 			"configuration": {
-				"host": "microk8s-vm",
-				"port": "31433",
+				"host": "localhost",
+				"port": "1433",
 				"database": "mgdw",
-				"url": "jdbc:sqlserver://;serverName\u003dmicrok8s-vm;port\u003d31433;databaseName\u003dmgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dlocalhost;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -1038,6 +1017,72 @@
 					"sslTrustServerCertificate": "false"
 				},
 				"auth-model": "native"
+			}
+		},
+		"microsoft-19460e09ce8-6840424b949f9329": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "repsys-rsdw",
+			"save-password": true,
+			"configuration": {
+				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
+				"port": "3342",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dmgsqlmi.public.48d444e7f69b.database.windows.net;port\u003d3342;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "true"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"azure-19461ba2ec9-3b05a989dfeb736b": {
+			"provider": "sqlserver",
+			"driver": "azure",
+			"name": "repsys_mgdw",
+			"save-password": true,
+			"configuration": {
+				"host": "repsys.database.windows.net",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003drepsys.database.windows.net;databaseName\u003dmgdw;encrypt\u003dtrue",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"show-all-databases-azure": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
+		},
+		"microsoft-19461f81fea-3020a58c58c81431": {
+			"provider": "sqlserver",
+			"driver": "microsoft",
+			"name": "docker-mgdw-mi",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "1433",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dlocalhost;databaseName\u003dmgdw",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"properties": {
+					"trustServerCertificate": "true"
+				},
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
 			}
 		}
 	},

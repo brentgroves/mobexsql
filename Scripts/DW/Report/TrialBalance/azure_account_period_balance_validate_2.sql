@@ -14,13 +14,15 @@ select top 10 *
 --select count(*) cnt 
 from Archive.account_activity_summary_12_03_24 -- 156,166
 
-select s.Name,sh.*
+select s.Name, sh.*
 from ETL.script_history sh 
 join ETL.script s 
 on sh.script_key=s.Script_Key 
-where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-06 00:00:00' and '2024-12-07 00:00:00' 
-order by script_history_key desc
+--where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
+ where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+and start_time between '2025-01-08 00:00:00' and '2025-01-09 00:00:00' 
+order by start_time desc
+
 
 /*
 AccountingYearCategoryType:    
@@ -54,6 +56,9 @@ and c.[year] = 2024
 and b.pcn is NULL
 order by c.account_no 
 
+select top 10 *
+-- select count(*) 
+from Plex.accounting_account_year_category_type -- 55,922
 
 /*
 Accounting_account ETL script calls the accounting_account_DW_Import plex sproc.  
@@ -106,7 +111,7 @@ order by script_history_key desc
 
 select top 10 * 
 -- select count(*) 
-from Plex.accounting_account  -- 19,287/19,286,19,176
+from Plex.accounting_account  -- 19,827/19,286,19,176
 where pcn=123681 -- 4,894 on 12/05/24 | 4,893 on 12/04/24 ### 4,885 on 12/3/24 ### 4,642 3 accounts were added on July 5th, 2024# 4,639 1 account added on Jun 2024 /4,638/4,622/4,621/4,617
 --where account_no = '10110-000-00000'
 --accounting_account_DW_count = 4893 on 12/3/24
@@ -126,7 +131,7 @@ If DW column was datetime2 no conversion would be necessary
 */
 select top 10 *
 -- select count(*)
-from Plex.accounting_period p  
+from Plex.accounting_period p  --2,032
 where pcn = 123681 -- 1,132/1084/1060/1036
 and ordinal = 0  -- 566 
 and ordinal = 1 -- 566
@@ -181,7 +186,7 @@ of that table if desired for debugging purposes.
 
 -- select count(*)
 -- select top 10 *
-FROM Plex.accounting_balance 
+FROM Plex.accounting_balance -- 55,008
 where pcn = 123681 -- 49,326 on Dec 5,24 | 49,022/49,021
 -- and period = 202411  -- 0 
  and period = 202410  -- 304 
@@ -271,7 +276,7 @@ and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00'
 order by script_history_key desc
 
 select count(*) cnt 
-from Plex.account_activity_summary
+from Plex.account_activity_summary -- 166,441
 where pcn = 123681 -- 139539|139537|134401/134,401
 and period = 202412 -- 4894|4893
 --and period = 202411 -- 4894|4893 | 4,650 before running script on 12/4/24 
@@ -353,7 +358,7 @@ where pcn=123681 -- 4,894 on 12/05/24 | 4,893 on 12/04/24 ### 4,885 on 12/3/24 #
 select distinct pcn,period 
 -- select top 10 *
 -- select count(*)
-from Plex.account_period_balance -- 305,544 on 12/03/24
+from Plex.account_period_balance -- 318,504 / 305,544 on 12/03/24
 --order by pcn,period desc
 where pcn = 123681 -- 225,644 on Dec 6,2024 | 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
 --and period = 202412 -- 4,894
@@ -371,6 +376,8 @@ where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
 and start_time between '2024-12-05 00:00:00' and '2024-12-06 00:00:00' 
 order by script_history_key desc
 
+select count(*) cnt -- 92,093
+from ETL.Script_History
 /*
 AccountPeriodBalanceRecreateOpenPeriodRange
 The AccountPeriodBalanceRecreateOpenPeriodRange ETL Script runs the Plex.account_period_balance_recreate_open_period_range procedure 
@@ -398,7 +405,8 @@ and period between 202311 and 202411  -- 63,622
 select * 
 -- into Archive.trial_balance_multi_level_01_03_2024 -- 765,128
 -- into Archive.trial_balance_multi_level_09_11_2023 -- 748,312
-from Plex.trial_balance_multi_level -- 
+-- select count(*) cnt
+from Plex.trial_balance_multi_level -- 794,556
 
 /*
  * Main Compare
@@ -617,6 +625,9 @@ and b.period = p.period -- 688,665
 where p.period between @period_start and @period_end -- 83,289/2021-01 to 2022-07,70,677/2021-01 to 2022-04
 and b.pcn is null -- 0
 
+select top 10 *
+-- select count(*) 
+from mgdw.Plex.Account_Balances_by_Periods -- 705,481
 /*
  * Are there any accounts that we are not showing in our report?
  */
@@ -970,6 +981,9 @@ and a.account_no = d.account_no
  * ytd_balance as 'YTD Debit/(Credit)'
  */
 
+select top 10 *
+-- select count(*) 
+from mgdw.Plex.trial_balance_multi_level_py -- 4,204
 
 
 

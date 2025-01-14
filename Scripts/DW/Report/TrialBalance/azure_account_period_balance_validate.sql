@@ -17,7 +17,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2024-12-02 00:00:00' and '2024-12-03 00:00:00' 
+and start_time between '2025-01-08 00:00:00' and '2025-01-09 00:00:00' 
 order by start_time desc
 /* script time test query end */
 
