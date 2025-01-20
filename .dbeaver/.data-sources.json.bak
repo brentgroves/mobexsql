@@ -1043,12 +1043,12 @@
 		"azure-19461ba2ec9-3b05a989dfeb736b": {
 			"provider": "sqlserver",
 			"driver": "azure",
-			"name": "repsys_rsdw",
+			"name": "repsys_mgdw",
 			"save-password": true,
 			"configuration": {
 				"host": "repsys.database.windows.net",
-				"database": "rsdw",
-				"url": "jdbc:sqlserver://;serverName\u003drepsys.database.windows.net;databaseName\u003drsdw;encrypt\u003dtrue",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003drepsys.database.windows.net;databaseName\u003dmgdw;encrypt\u003dtrue",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -1069,8 +1069,8 @@
 			"configuration": {
 				"host": "localhost",
 				"port": "1433",
-				"database": "master",
-				"url": "jdbc:sqlserver://;serverName\u003dlocalhost;databaseName\u003dmaster",
+				"database": "mgdw",
+				"url": "jdbc:sqlserver://;serverName\u003dlocalhost;databaseName\u003dmgdw",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
