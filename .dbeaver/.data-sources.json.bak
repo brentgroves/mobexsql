@@ -1084,6 +1084,27 @@
 				},
 				"auth-model": "sqlserver_database"
 			}
+		},
+		"azure-19485cdb286-1475bae38fe80a6b": {
+			"provider": "sqlserver",
+			"driver": "azure",
+			"name": "repsys1_repsys1",
+			"save-password": true,
+			"configuration": {
+				"host": "repsys1.database.windows.net",
+				"database": "repsys1",
+				"url": "jdbc:sqlserver://;serverName\u003drepsys1.database.windows.net;databaseName\u003drepsys1;encrypt\u003dtrue",
+				"configurationType": "MANUAL",
+				"type": "dev",
+				"closeIdleConnection": false,
+				"provider-properties": {
+					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
+					"@dbeaver-show-all-schemas@": "false",
+					"show-all-databases-azure": "false",
+					"sslTrustServerCertificate": "false"
+				},
+				"auth-model": "sqlserver_database"
+			}
 		}
 	},
 	"connection-types": {

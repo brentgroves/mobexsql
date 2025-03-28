@@ -98,7 +98,7 @@
 		"microsoft-181874ea567-60097764b667aaa0": {
 			"provider": "sqlserver",
 			"driver": "microsoft",
-			"name": "mgdw-mgsqlmi",
+			"name": "1_mgdw-mgsqlmi",
 			"save-password": true,
 			"configuration": {
 				"host": "mgsqlmi.public.48d444e7f69b.database.windows.net",
@@ -823,13 +823,13 @@
 		"mysql8-190c25bcf5c-15c6666628c94596": {
 			"provider": "mysql",
 			"driver": "mysql8",
-			"name": "repsys11-c2-n1",
+			"name": "1_k8sn211",
 			"save-password": true,
 			"configuration": {
-				"host": "repsys11-c2-n1",
+				"host": "k8sn211",
 				"port": "30031",
 				"database": "mysql",
-				"url": "jdbc:mysql://repsys11-c2-n1:30031/mysql",
+				"url": "jdbc:mysql://k8sn211:30031/mysql",
 				"configurationType": "MANUAL",
 				"type": "dev",
 				"closeIdleConnection": false,
@@ -1088,7 +1088,7 @@
 		"azure-19485cdb286-1475bae38fe80a6b": {
 			"provider": "sqlserver",
 			"driver": "azure",
-			"name": "repsys1_repsys1",
+			"name": "1_repsys1_repsys1",
 			"save-password": true,
 			"configuration": {
 				"host": "repsys1.database.windows.net",
