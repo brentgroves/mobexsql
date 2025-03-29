@@ -110,7 +110,8 @@
 				"closeIdleConnection": false,
 				"provider-properties": {
 					"@dbeaver-authentication@": "SQL_SERVER_PASSWORD",
-					"@dbeaver-show-all-schemas@": "false"
+					"@dbeaver-show-all-schemas@": "false",
+					"sslTrustServerCertificate": "false"
 				},
 				"auth-model": "sqlserver_database"
 			}
