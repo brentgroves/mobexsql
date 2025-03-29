@@ -1089,7 +1089,7 @@
 		"azure-19485cdb286-1475bae38fe80a6b": {
 			"provider": "sqlserver",
 			"driver": "azure",
-			"name": "1_repsys1_repsys1",
+			"name": "1_repsys1",
 			"save-password": true,
 			"configuration": {
 				"host": "repsys1.database.windows.net",
