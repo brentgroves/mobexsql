@@ -20,7 +20,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 
@@ -141,7 +141,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by script_history_key desc
 
 select top 10 * 
@@ -200,7 +200,7 @@ where pcn = 123681
 
 |id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
 |-----|-------|------------|----------|-----------------|---------------|---------|
-|1,732|123,681|202,405     |202,503   |202,504          |202,505        |0        |
+|1,733|123,681|202,405     |202,502   |202,503          |202,505        |0        |
 
 
 select s.Name, sh.*
@@ -209,7 +209,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 /*
@@ -225,6 +225,11 @@ of that table if desired for debugging purposes.
 
 */
 
+|id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
+|-----|-------|------------|----------|-----------------|---------------|---------|
+|1,733|123,681|202,405     |202,502   |202,503          |202,505        |0        |
+
+
 -- select count(*)
 -- select top 10 *
 FROM Plex.accounting_balance -- 55,008
@@ -236,7 +241,7 @@ where pcn = 123681 -- 50,878 on 5/1/25 | 50,568 on 4/3/25 |50,245 on 4/2/25 | 49
 -- and period = 202411  -- 287 
 -- and period = 202410  -- 304 nothing added on 2/4/25
 -- and period = 202409  -- 235 
- and period = 202405  -- 231 
+-- and period = 202405  -- 231 
 -- and period = 202404  -- 230 
 -- and period = 202403  -- 224 
 -- and period = 202402  -- 230 
@@ -283,7 +288,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by script_history_key desc
 --if (rec[0][0] = '123681') { "Adult" } else { "Minor" }
 --if (rec[0][2] = '63300-200-0000'):
@@ -336,7 +341,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 select * from Plex.accounting_period_ranges -- 202105/202204
@@ -344,19 +349,20 @@ where pcn = 123681
 
 |id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
 |-----|-------|------------|----------|-----------------|---------------|---------|
-|1,732|123,681|202,405     |202,503   |202,504          |202,505        |0        |
+|1,733|123,681|202,405     |202,502   |202,503          |202,505        |0        |
 
 select top 10 *
 --select count(*) cnt 
 from Plex.account_activity_summary -- 166,441
-where pcn = 123681 -- 139539|139537|134401/134,401
+where pcn = 123681 -- 164,079|139539|139537|134401/134,401
 --and period = 202505 -- 4,910 
 --and period = 202504 -- 4,910 | 4897
 --and period = 202503 -- 4,910 | 4,908 | 4897
 --and period = 202502 -- 4,910 | 4,908 | 4897| 0
 --and period = 202501 -- 4897 | 4894
 --and period = 202412 -- 4897 | 4894|4893
-and period between 202504 and 202505 -- 9820 on 5/1/25
+and period between 202503 and 202505 -- 14,730 on 5/2/25
+--and period between 202504 and 202505 -- 9820 on 5/1/25
 --and period between 202503 and 202504 -- 9820 on 4/3/25
 --and period between 202502 and 202504 -- 14,730 on 4/2/25
 --and period between 202501 and 202503 -- 14,713 on 4/2/25 before AccountPeriodBalanceRecreatePeriodRange | 14691
@@ -395,7 +401,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 
@@ -428,7 +434,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 /*
@@ -443,7 +449,7 @@ where pcn = 123681
 
 |id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
 |-----|-------|------------|----------|-----------------|---------------|---------|
-|1,732|123,681|202,405     |202,503   |202,504          |202,505        |0        |
+|1,733|123,681|202,405     |202,502   |202,503          |202,505        |0        |
 
 
 
@@ -452,7 +458,7 @@ select distinct pcn,period
 -- select count(*)
 from Plex.account_period_balance -- 318,504 / 305,544 on 12/03/24
 --order by pcn,period desc
-where pcn = 123681 -- 245,450 on 4/3/25 | 235,474 before 3/4/25 | 230,538 before 2/4/25 | 225,644 on Dec 6,2024 | 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
+where pcn = 123681 -- 250,360 on 5/2/25 | 245,450 on 4/3/25 | 235,474 before 3/4/25 | 230,538 before 2/4/25 | 225,644 on Dec 6,2024 | 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
 --and period = 202503 -- 4,910 
 --and period = 202502 -- 4,910 
 --and period = 202501 -- 4,910 
@@ -463,7 +469,8 @@ where pcn = 123681 -- 245,450 on 4/3/25 | 235,474 before 3/4/25 | 230,538 before
 --and period = 202403 -- 4,910 | 4,897 | 4,894 before 2/4/25
 --and period = 202402 -- 4,897 | 4,894 before 2/4/25
 --and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
-and period between 202404 and 202503  -- 58,920
+--and period between 202404 and 202503  -- 58,920
+and period between 202404 and 202502  -- 54,010
 and period between 202403 and 202502  -- 58,920
 and period between 202403 and 202501  -- 54,010
 and period between 202403 and 202412  -- 49,080 | 48,970 before 4/2/25 | 48,940 before 2/4/25
@@ -476,7 +483,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 select count(*) cnt -- 92,093
@@ -493,7 +500,7 @@ where pcn = 123681
 
 |id   |pcn    |start_period|end_period|start_open_period|end_open_period|no_update|
 |-----|-------|------------|----------|-----------------|---------------|---------|
-|1,732|123,681|202,405     |202,503   |202,504          |202,505        |0        |
+|1,733|123,681|202,405     |202,502   |202,503          |202,505        |0        |
 
 select distinct pcn,period 
 -- select top 10 *
@@ -505,7 +512,8 @@ where pcn = 123681 -- 224,644 | 220,506
 --and period = 202503 -- 4,910 | 4,908 | 4897 before 4/2/25 | 0
 --and period = 202502 -- 4,910 | 4,908 | 4897 | 0
 --and period = 202501 -- 4,910 | 4,908 | 4897 | before 2/4/25 4,894
-and period between 202504 and 202505  -- 9,820
+--and period between 202504 and 202505  -- 9,820
+and period between 202503 and 202505  -- 14730
 and period between 202503 and 202504  -- 9,820
 and period between 202501 and 202503  -- 14,730 | 14,724 | 14,691
 and period between 202412 and 202502  -- 14,691
@@ -522,7 +530,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-01 00:00:00' and '2025-05-02 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 
