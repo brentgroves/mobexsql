@@ -141,7 +141,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by script_history_key desc
 
 select top 10 * 
@@ -209,7 +209,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 /*
@@ -245,6 +245,7 @@ where pcn = 123681 -- 50,878 on 5/1/25 | 50,568 on 4/3/25 |50,245 on 4/2/25 | 49
 -- and period = 202404  -- 230 
 -- and period = 202403  -- 224 
 -- and period = 202402  -- 230 
+--and period between 202405 and 202503  -- 3232 on 5/4/25 
 and period between 202404 and 202503  -- 3232 on 5/4/25 
 and period between 202404 and 202502  -- 2922 on 4/3/25 
 and period between 202403 and 202501  -- 2823 on 04/02/25 | 2491 | 2191 before 3/4/25 
@@ -289,7 +290,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by script_history_key desc
 --if (rec[0][0] = '123681') { "Adult" } else { "Minor" }
 --if (rec[0][2] = '63300-200-0000'):
@@ -342,7 +343,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 select * from Plex.accounting_period_ranges -- 202105/202204
@@ -402,7 +403,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 
@@ -435,7 +436,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 /*
@@ -484,7 +485,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 select count(*) cnt -- 92,093
@@ -531,7 +532,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-05 00:00:00' and '2025-05-06 00:00:00' 
+and start_time between '2025-05-06 00:00:00' and '2025-05-07 00:00:00' 
 order by start_time desc
 
 
