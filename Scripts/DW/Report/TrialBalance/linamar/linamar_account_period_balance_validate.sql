@@ -20,7 +20,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-05-14 00:00:00' and '2025-05-15 00:00:00' 
+and start_time between '2025-05-02 00:00:00' and '2025-05-03 00:00:00' 
 order by start_time desc
 
 
@@ -32,11 +32,11 @@ is a revenue/expense to determine whether to reset YTD values to 0 for every yea
 */
 
 select count(*) from Plex.accounting_account_year_category_type aayct  
-where pcn = 123681 -- 33,410
--- and year = 2026 -- 4894 | 4897  
---and year = 2025 -- 4910 | 4908(04/02/2025)|4897 | 4894 
---and year = 2024 -- 4910 | 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
---and year = 2023 -- 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+where pcn = 123681 -- 33,458 | 33,441,33,419,28,270#27,757#27,750#27,748 mssql (05/08/24) and 27,743 in mysql
+-- and year = 2026 -- 4897  
+-- and year = 2025 -- 4910 | 4908(04/02/2025)|4897 | 4894 
+and year = 2024 -- 4910 | 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+and year = 2023 -- 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
 
 --accounting_year_category_type_count says 4,893 the day after I ran the scripts and got 4,885
 
