@@ -20,7 +20,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-03 00:00:00' and '2025-06-04 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 
@@ -141,7 +141,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by script_history_key desc
 
 select top 10 * 
@@ -154,6 +154,14 @@ where pcn=123681 -- 4916 on 6/2/25 | 4910 on 4/2/25 a little later | 4908 on 04/
 |--------------|
 |65100-100-0070|
 |68400-000-0070|
+
+select s.Name,sh.*
+from ETL.script_history sh 
+join ETL.script s 
+on sh.script_key=s.Script_Key 
+where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
+order by script_history_key desc
 
 /*
 Accounting_period ETL script: accounting_period_dw_import
@@ -209,7 +217,7 @@ join ETL.script s
 on sh.script_key=s.Script_Key 
 --where sh.script_key in (1,3,4,5,6,7,9,10,11,116)
  where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 /*
@@ -292,7 +300,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by script_history_key desc
 --if (rec[0][0] = '123681') { "Adult" } else { "Minor" }
 --if (rec[0][2] = '63300-200-0000'):
@@ -345,7 +353,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 select * from Plex.accounting_period_ranges -- 202105/202204
@@ -361,7 +369,7 @@ from Plex.account_activity_summary -- 166,441
 where pcn = 123681 -- 164,079|139539|139537|134401/134,401
 --and period = 202506 -- 4,916 
 --and period = 202505 -- 4916 | 4,910 
-and period = 202504 -- 4916 | 4,910 | 4897
+--and period = 202504 -- 4916 | 4,910 | 4897
 --and period = 202503 -- 4,910 | 4,908 | 4897
 --and period = 202502 -- 4,910 | 4,908 | 4897| 0
 --and period = 202501 -- 4897 | 4894
@@ -408,7 +416,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 
@@ -441,7 +449,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 /*
@@ -489,7 +497,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 select count(*) cnt -- 92,093
@@ -538,7 +546,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-04 00:00:00' and '2025-06-05 00:00:00' 
+and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
 order by start_time desc
 
 
