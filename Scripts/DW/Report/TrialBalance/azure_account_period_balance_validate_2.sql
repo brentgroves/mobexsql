@@ -1,3 +1,22 @@
+select top 10 *
+-- select count(*) 
+from Plex.accounting_account_year_category_type aayct  
+where pcn = 123681 -- 33,476 | 33,470 | 33,458 | 33,441,33,419,28,270#27,757#27,750#27,748 mssql (05/08/24) and 27,743 in mysql
+-- and year = 2026 -- 4916 | 4897  
+-- and year = 2025 -- 4916 | 4910 | 4908(04/02/2025)|4897 | 4894 
+--and year = 2024 -- 4916 accounts were not added to 2024 | 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+and year = 2023 -- 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+
+select top 10 s.Name, sh.*
+from ETL.script_history sh 
+join ETL.script s 
+on sh.script_key=s.Script_Key 
+-- where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
+where sh.script_key in (117)
+and start_time between '2024-12-01 15:20:00' and '2025-01-15 00:00:00' 
+order by start_time desc
+
+
 --There were over 200 new accounts added this period, 12/3/24
 /*
  * Backup tables
@@ -31,13 +50,15 @@ This is needed in YTD calculations which checks if an account
 is a revenue/expense to determine whether to reset YTD values to 0 for every year. 
 */
 
-select count(*) from Plex.accounting_account_year_category_type aayct  
+select top 10 *
+-- select count(*) 
+from Plex.accounting_account_year_category_type aayct  
 where pcn = 123681 -- 33,476 | 33,470 | 33,458 | 33,441,33,419,28,270#27,757#27,750#27,748 mssql (05/08/24) and 27,743 in mysql
 -- and year = 2026 -- 4916 | 4897  
 -- and year = 2025 -- 4916 | 4910 | 4908(04/02/2025)|4897 | 4894 
-and year = 2024 -- 4910 accounts were not added to 2024 | 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
+and year = 2024 -- 4916 accounts were not added to 2024 | 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
 and year = 2023 -- 4894 accounts were not added to 2024 | 4893 // 4,885 // last time i checked the number of accounts was 4642
-
+and aayct.revenue_or_expense = 1
 --accounting_year_category_type_count says 4,893 the day after I ran the scripts and got 4,885
 
 /*
@@ -95,6 +116,32 @@ where t24.account_no is null
 |65100-100-0070|
 |68400-000-0070|
 
+- add 3 accounts to 202401
+
+select top 10 a.*, b.*
+FROM 
+(
+select account_no 
+from Plex.account_period_balance   
+where pcn = 123681 and period = 202401 
+) a 
+left outer join 
+(
+select account_no
+from Plex.account_period_balance  
+where pcn = 123681 and period = 202312 
+) b
+on a.account_no = b.account_no
+where b.account_no is null 
+
+select * 
+from Plex.account_period_balance
+where account_no in ('40060-000-0100','65100-100-0100','68400-000-0100')
+and pcn = 123681 and period between 202401 and 202405
+order by period, account_no 
+
+
+
 /*
 Accounting_account ETL script calls the accounting_account_DW_Import plex sproc.  
 This is used to determine the current accounts needed in the account_period_balance table. It has 
@@ -141,7 +188,7 @@ from ETL.script_history sh
 join ETL.script s 
 on sh.script_key=s.Script_Key 
 where sh.script_key in (1,3,4,5,6,7,8,9,10,11,116,117)
-and start_time between '2025-06-05 00:00:00' and '2025-06-06 00:00:00' 
+and start_time between '2025-06-07 00:00:00' and '2025-06-08 00:00:00' 
 order by script_history_key desc
 
 select top 10 * 
@@ -180,8 +227,8 @@ select top 10 *
 -- select count(*)
 from Plex.accounting_period p  -- 2080 | 2,032
 where pcn = 123681 --  1180 on 4/2/25 | 1180 on 3/4/25 | 1156 on 2/4/25 | 1,132/1084/1060/1036
-and ordinal = 0  -- 566 
-and ordinal = 1 -- 566
+--and ordinal = 0  -- 590 | 566 
+and ordinal = 1 -- 590 | 566
 --and period > 202101 -- 718/694/670
 and period between 202410 and 202410
 
@@ -467,6 +514,41 @@ where pcn = 123681
 |1,739|123,681|202,406     |202,504   |202,505          |202,506        |0        |
 
 
+--- add 6 accounts on 202405
+
+select a.account_no 
+FROM 
+(
+select * 
+-- select count(*) -- 4910
+from Plex.account_period_balance   
+where pcn = 123681 and period = 202405 
+) a 
+left outer join 
+(
+select account_no
+-- select count(*) -- 4897
+from Plex.account_period_balance  
+where pcn = 123681 and period = 202404 
+) b
+on a.account_no = b.account_no
+where b.account_no is null 
+order by a.account_no 
+
+--INSERT INTO Plex.account_period_balance (pcn,account_no,period,period_display,debit,ytd_debit,credit,ytd_credit,balance,ytd_balance) VALUES
+--	 (123681,N'11050-000-0309',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000),
+--	 (123681,N'20150-000-0240',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000),
+--	 (123681,N'20150-000-0309',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000),
+--	 (123681,N'73000-200-0000',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000),
+--	 (123681,N'73000-320-0000',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000),
+--	 (123681,N'90400-000-0309',202405,N'05-2024',0.00000,0.00000,0.00000,0.00000,0.00000,0.00000);
+--
+--	 (N'11050-000-0309'),
+--	 (N'20150-000-0240'),
+--	 (N'20150-000-0309'),
+--	 (N'73000-200-0000'),
+--	 (N'73000-320-0000'),
+--	 (N'90400-000-0309');
 
 select distinct pcn,period 
 -- select top 10 *
@@ -479,7 +561,14 @@ where pcn = 123681 -- 255,354 on 6/4/25 | 250,360 on 5/2/25 | 245,450 on 4/3/25 
 --and period = 202502 -- 4,916 |4,910 
 --and period = 202406 -- 4,916 |4,910 | 4,897 | 4,894 before 2/4/25
 --and period = 202405 -- 4,916 |4,910 | 4,897 | 4,894 before 2/4/25
---and period = 202404 -- 4,910 | 4,897 | 4,894 before 2/4/25
+--and period = 202404 -- 4,910 
+--and period = 202403 -- 4,910 
+and period = 202402 -- 4,897 
+and period = 202401 -- 4,897 
+and period = 202312 -- 4,894 
+and period = 202311 -- 4,894 
+and period = 202310 -- 4,650 
+
 --and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
 and period between 202405 and 202504  -- 58,992
 and period between 202405 and 202503  -- 54,076 | 54,010
