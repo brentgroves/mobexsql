@@ -301,6 +301,10 @@ where pcn = 123681 -- 50,878 on 5/1/25 | 50,568 on 4/3/25 |50,245 on 4/2/25 | 49
 -- and period = 202404  -- 230 
 -- and period = 202403  -- 224 
 -- and period = 202402  -- 230 
+and period between 202411 and 202504  
+and period between 202406 and 202410  
+
+and period between 202406 and 202504  -- 3080 on 6/10/25 
 and period between 202405 and 202504  -- 3311 on 6/4/25 
 and period between 202405 and 202503  -- 3002 on 5/4/25 
 and period between 202404 and 202503  -- 3232 on 5/4/25 
