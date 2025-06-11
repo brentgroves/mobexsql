@@ -379,10 +379,13 @@ for i in list:
 /*
  * Backup tables
  */
-select * 
+select distinct period 
 --select count(*) cnt
 --into Archive.account_activity_summary_12_03_24 -- 12/3/24 cnt=156,166
 from Plex.account_activity_summary -- 156,166
+where pcn = 123681
+order by period desc 
+
 where account_no in ('65100-100-0070','65100-100-0070')
 
 |pcn    |period |account_no    |beginning_balance|debit   |credit|balance |ending_balance|
@@ -418,13 +421,14 @@ select top 10 *
 --select count(*) cnt 
 from Plex.account_activity_summary -- 166,441
 where pcn = 123681 -- 164,079|139539|139537|134401/134,401
---and period = 202506 -- 4,916 
+and period = 202506 -- 4,916 
 --and period = 202505 -- 4916 | 4,910 
 --and period = 202504 -- 4916 | 4,910 | 4897
 --and period = 202503 -- 4,910 | 4,908 | 4897
 --and period = 202502 -- 4,910 | 4,908 | 4897| 0
 --and period = 202501 -- 4897 | 4894
 --and period = 202412 -- 4897 | 4894|4893
+and period between 202505 and 202506 -- 9832 on 6/11/25 
 and period between 202504 and 202506 -- 14,748 on 6/2/25 | 9820 on 5/1/25
 --and period between 202504 and 202505 -- 9820 on 5/1/25
 
