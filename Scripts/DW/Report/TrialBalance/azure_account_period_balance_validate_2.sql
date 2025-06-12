@@ -559,25 +559,38 @@ order by a.account_no
 --	 (N'90400-000-0309');
 
 select distinct pcn,period 
--- select top 10 *
+-- select top 200 *
 -- select count(*)
 from Plex.account_period_balance -- 318,504 / 305,544 on 12/03/24
 --order by pcn,period desc
 where pcn = 123681 -- 255,354 on 6/4/25 | 250,360 on 5/2/25 | 245,450 on 4/3/25 | 235,474 before 3/4/25 | 230,538 before 2/4/25 | 225,644 on Dec 6,2024 | 220,506 on Dec 5,2024 | 217,578 on Dec 4,2024
---and period = 202504 -- 4,916 
+--and period = 202405
+--order by period desc, account_no 
+and period = 202504 -- 4,916 
+order by account_no desc
 --and period = 202503 -- 4,916 |4,910 
 --and period = 202502 -- 4,916 |4,910 
---and period = 202406 -- 4,916 |4,910 | 4,897 | 4,894 before 2/4/25
+--and period = 202501 -- 
+--and period = 202412 -- 
+--and period = 202411 -- 
+--and period = 202410 -- 
+--and period = 202409 -- 
+--and period = 202408 -- 
+--and period = 202407 -- 
+and period = 202406 -- 
 --and period = 202405 -- 4,916 |4,910 | 4,897 | 4,894 before 2/4/25
 --and period = 202404 -- 4,910 
 --and period = 202403 -- 4,910 
-and period = 202402 -- 4,897 
-and period = 202401 -- 4,897 
-and period = 202312 -- 4,894 
-and period = 202311 -- 4,894 
-and period = 202310 -- 4,650 
+--and period = 202402 -- 4,897 
+--and period = 202401 -- 4,897 
+--and period = 202312 -- 4,894 
+--and period = 202311 -- 4,894 
+--and period = 202310 -- 4,650 
 
 --and account_no in ('12450-000-0000','77300-850-0055','90300-850-0000')  -- new account
+--and period between 202502 and 202504  -- 14748
+and period between 202406 and 202501  -- 39,328
+and period between 202406 and 202504  -- 54.076
 and period between 202405 and 202504  -- 58,992
 and period between 202405 and 202503  -- 54,076 | 54,010
 and period between 202404 and 202503  -- 58,920
@@ -618,6 +631,12 @@ select distinct pcn,period
 -- select count(*)
 from Plex.account_period_balance 
 where pcn = 123681 -- 224,644 | 220,506
+--and period = 202404 -- 4910
+--and period = 202403 -- 4,910
+--and period = 202402 -- 4,897
+--and period = 202401 -- 4,897
+and period = 202312 -- 4,894
+
 --and period = 202506 -- 4916
 --and period = 202505 -- 4,916 | 4910
 --and period = 202504 -- 4916 | 4,910
